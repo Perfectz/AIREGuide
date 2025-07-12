@@ -45,7 +45,7 @@ class RealEstateApp {
             // Initialize any additional features
             this.initializeAdditionalFeatures();
             
-            console.log('Real Estate Training App initialized successfully');
+            // App initialized successfully
             
             // Initialize with current hash or default to home
             const hash = window.location.hash.substring(1);

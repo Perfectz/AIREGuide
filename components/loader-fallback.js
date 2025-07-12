@@ -30,7 +30,7 @@ class ComponentLoaderFallback {
         // If no embedded component found, return error message
         return `<div class="bg-red-50 border border-red-200 p-4 rounded-lg">
             <p class="text-red-600">Component not found: ${componentName}</p>
-            <p class="text-sm text-red-500">Please use HTTP server (http://localhost:8000) for full functionality.</p>
+            <p class="text-sm text-red-500">Please use HTTP server for full functionality.</p>
         </div>`;
     }
 

@@ -32,7 +32,7 @@ export class ComponentManager {
 
         try {
             await Promise.all(loadPromises);
-            console.log('All components loaded successfully');
+            // All components loaded successfully
         } catch (error) {
             console.error('Error loading components:', error);
         }
@@ -97,7 +97,7 @@ export class ComponentManager {
             let errorMessage = 'Error loading content';
             let additionalInfo = '';
             if (location.protocol === 'file:') {
-                additionalInfo = '<p class="text-sm text-gray-600 mt-2">This site requires a local web server when running from files. Try running:<br><code>python -m http.server 8000</code><br>in the project directory and access via http://localhost:8000</p>';
+                additionalInfo = '<p class="text-sm text-gray-600 mt-2">This site requires a web server when running from files. Please serve via HTTP/HTTPS.</p>';
             }
             section.innerHTML = `
                 <div class="text-center py-8">
