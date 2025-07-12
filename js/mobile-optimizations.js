@@ -122,7 +122,7 @@ export class MobileOptimizations {
             setInterval(() => {
                 const memory = performance.memory;
                 if (memory.usedJSHeapSize > memory.jsHeapSizeLimit * 0.8) {
-                    console.warn('High memory usage detected');
+                    // High memory usage detected - optimizing
                     this.optimizeMemoryUsage();
                 }
             }, 30000);
@@ -130,7 +130,7 @@ export class MobileOptimizations {
     }
 
     logPerformanceMetric(metric, value) {
-        console.log(`Mobile Performance - ${metric}: ${value}ms`);
+        // Mobile performance metric recorded
         // Could send to analytics here
     }
 

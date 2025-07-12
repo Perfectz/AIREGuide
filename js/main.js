@@ -333,7 +333,7 @@ class RealEstateApp {
     trackPageView() {
         // Simple analytics tracking
         const page = window.location.hash || '#home';
-        console.log('Page view:', page);
+        // Page view tracked
         
         // You could integrate with Google Analytics or other services here
         if (typeof gtag !== 'undefined') {
@@ -344,7 +344,7 @@ class RealEstateApp {
     }
 
     trackEvent(eventName, parameters = {}) {
-        console.log('Event tracked:', eventName, parameters);
+        // Event tracked
         
         // You could integrate with Google Analytics or other services here
         if (typeof gtag !== 'undefined') {
@@ -369,7 +369,7 @@ class RealEstateApp {
         const observer = new PerformanceObserver((list) => {
             for (const entry of list.getEntries()) {
                 if (entry.entryType === 'navigation') {
-                    console.log('Navigation timing:', entry);
+                    // Navigation timing recorded
                 }
             }
         });

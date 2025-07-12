@@ -323,8 +323,7 @@ export class PromptLibraryManager {
         const libraryContainer = document.getElementById('prompt-library-accordion');
         if (!libraryContainer) return;
         
-        console.log('Initializing prompt library with', this.prompts.length, 'categories');
-        console.log('First prompt content:', this.prompts[0]?.prompts[0]?.prompt);
+        // Initializing prompt library
 
         libraryContainer.innerHTML = `
             <div class="mb-6 flex justify-between items-center">
@@ -392,11 +391,8 @@ export class PromptLibraryManager {
 
         // Add click handlers for accordion functionality
         const categoryHeaders = libraryContainer.querySelectorAll('.category-header');
-        console.log('Found', categoryHeaders.length, 'category headers');
         categoryHeaders.forEach((header, index) => {
-            console.log('Adding click listener to header', index);
             header.addEventListener('click', () => {
-                console.log('Header clicked!');
                 const item = header.parentElement;
                 const content = item.querySelector('.category-content');
                 const icon = item.querySelector('.category-icon');

@@ -103,14 +103,14 @@ export class PerformanceManager {
         new PerformanceObserver((list) => {
             const entries = list.getEntries();
             const lastEntry = entries[entries.length - 1];
-            console.log('LCP:', lastEntry.startTime);
+            // LCP measurement complete
         }).observe({ entryTypes: ['largest-contentful-paint'] });
 
         // FID (First Input Delay)
         new PerformanceObserver((list) => {
             const entries = list.getEntries();
             entries.forEach(entry => {
-                console.log('FID:', entry.processingStart - entry.startTime);
+                // FID measurement complete
             });
         }).observe({ entryTypes: ['first-input'] });
 
@@ -123,7 +123,7 @@ export class PerformanceManager {
                     cls += entry.value;
                 }
             });
-            console.log('CLS:', cls);
+            // CLS measurement complete
         }).observe({ entryTypes: ['layout-shift'] });
     }
 

@@ -1,0 +1,46 @@
+{
+  "name": "ai-real-estate-playbook",
+  "version": "1.0.0",
+  "description": "Professional AI Playbook for Real Estate Professionals - Master ChatGPT prompts, buyer personas, and omnichannel marketing strategies",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "build": "npm run optimize",
+    "optimize": "npm run optimize:images && npm run optimize:css && npm run optimize:js",
+    "optimize:images": "echo 'Image optimization: Install imagemin or similar tool'",
+    "optimize:css": "echo 'CSS optimization: Install cssnano or similar tool'",
+    "optimize:js": "echo 'JS optimization: Install uglify-js or terser'",
+    "test": "echo 'Tests: Add testing framework'",
+    "deploy": "echo 'Deploy: Configure deployment script'",
+    "lighthouse": "lighthouse http://localhost:8000 --view"
+  },
+  "keywords": [
+    "real-estate",
+    "ai",
+    "chatgpt",
+    "marketing",
+    "prompts",
+    "real-estate-training"
+  ],
+  "author": "AI Advantage",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/ai-real-estate-playbook.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/ai-real-estate-playbook/issues"
+  },
+  "homepage": "https://yourdomain.com",
+  "devDependencies": {
+    "lighthouse": "^11.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
