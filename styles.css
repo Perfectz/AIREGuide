@@ -387,6 +387,12 @@ html {
   --z-index-40: 40;
   --z-index-50: 50;
   --z-index-auto: auto;
+
+  /* Standardized Breakpoints */
+  --mobile-max: 767px;
+  --tablet-min: 768px;
+  --desktop-min: 1024px;
+  --large-desktop-min: 1280px;
 }
 
 /* Reset and Base Styles */
@@ -6217,4 +6223,302 @@ body {
 
 .text-secondary {
   color: var(--text-secondary) !important;
+}
+
+/* Add mobile-specific media query at the end */
+
+@media (max-width: 767px) {
+  body {
+    font-size: 0.875rem; /* Smaller base font for mobile */
+  }
+  
+  .container {
+    padding: 0 var(--spacing-2); /* Reduced padding */
+  }
+  
+  .hero-modern {
+    flex-direction: column !important; /* Force stack */
+    text-align: center;
+    padding: var(--spacing-4) var(--spacing-2);
+  }
+  
+  .hero-image {
+    width: 100% !important; /* Full width on mobile */
+    margin-top: var(--spacing-4);
+  }
+  
+  .btn {
+    width: 100%; /* Full-width buttons */
+    padding: var(--spacing-3) !important;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr !important; /* Single column */
+  }
+  
+  .modern-section {
+    padding: var(--spacing-4) var(--spacing-2);
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  h1 {
+    font-size: 1.5rem; /* Adjust heading sizes */
+  }
+  
+  h2 {
+    font-size: 1.25rem;
+  }
+  
+  /* Fix potential overflow */
+  .overflow-hidden {
+    overflow: hidden;
+  }
+}
+
+/* Targeted mobile optimizations for home page */
+@media (max-width: 767px) {
+  .hero-modern h1 {
+    font-size: 2rem; /* Smaller title */
+    text-align: center;
+  }
+  .hero-modern span {
+    font-size: 1rem;
+    text-align: center;
+  }
+  .hero-modern p {
+    font-size: 1rem;
+    max-width: 100%;
+    text-align: center;
+  }
+  .hero-modern a {
+    width: 100%; /* Full-width button */
+    justify-content: center;
+  }
+  .hero-modern img {
+    max-width: 100%;
+    margin: 1rem auto; /* Center image */
+  }
+  .modern-grid {
+    grid-template-columns: 1fr; /* Stack cards */
+  }
+  .ai-ui-grid-row {
+    flex-direction: column; /* Stack UI images */
+  }
+  .quickstart-section .modern-card {
+    padding: 1rem; /* Reduced padding */
+  }
+  .modern-section {
+    padding: 1rem;
+  }
+}
+
+/* Hide toggle on mobile */
+@media (max-width: 767px) {
+  .accessibility-toggle {
+    display: none !important;
+  }
+}
+
+/* Mobile-optimized typography */
+@media (max-width: 767px) {
+  :root {
+    --font-size-base: 0.875rem;    /* 14px */
+    --font-size-lg: 1rem;          /* 16px */
+    --font-size-xl: 1.125rem;      /* 18px */
+    --font-size-2xl: 1.25rem;      /* 20px */
+    --font-size-3xl: 1.5rem;       /* 24px */
+    --font-size-4xl: 1.875rem;     /* 30px */
+    --font-size-5xl: 2.25rem;      /* 36px */
+  }
+  
+  h1 { font-size: clamp(1.875rem, 8vw, 2.25rem); }
+  h2 { font-size: clamp(1.5rem, 6vw, 1.875rem); }
+  h3 { font-size: clamp(1.25rem, 5vw, 1.5rem); }
+  
+  p {
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Ensure minimum 44px touch targets */
+@media (max-width: 767px) {
+  .btn,
+  .nav-item,
+  .mobile-nav-item,
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px 16px;
+  }
+  
+  /* Increase spacing between interactive elements */
+  .btn + .btn,
+  .nav-item + .nav-item {
+    margin-top: 8px;
+  }
+}
+
+/* Mobile spacing optimization */
+@media (max-width: 767px) {
+  /* Hero sections - reduce padding */
+  .hero-modern {
+    padding: var(--spacing-4) var(--spacing-2) !important;
+    min-height: 300px !important;
+  }
+  
+  /* Container spacing */
+  .container {
+    padding: 0 var(--spacing-2);
+  }
+  
+  /* Card spacing */
+  .modern-card {
+    padding: var(--spacing-4);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .feature-card {
+    padding: var(--spacing-3);
+    margin-bottom: var(--spacing-3);
+  }
+  
+  /* Section spacing */
+  .modern-section {
+    margin-bottom: var(--spacing-6);
+  }
+  
+  /* Grid spacing */
+  .modern-grid {
+    gap: var(--spacing-3);
+  }
+  
+  /* Text spacing */
+  h1, h2, h3 {
+    margin-bottom: var(--spacing-2);
+  }
+  
+  p {
+    margin-bottom: var(--spacing-3);
+  }
+  
+  /* Table responsive */
+  .modern-table {
+    font-size: 0.75rem;
+    overflow-x: auto;
+    display: block;
+    white-space: nowrap;
+  }
+  
+  .modern-table th,
+  .modern-table td {
+    padding: var(--spacing-2);
+    min-width: 120px;
+  }
+  
+  /* Force table to scroll horizontally */
+  .modern-table tbody,
+  .modern-table thead {
+    display: table;
+    width: 100%;
+  }
+  
+  /* Button improvements */
+  .modern-btn {
+    width: 100%;
+    justify-content: center;
+    padding: var(--spacing-3) var(--spacing-4);
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .modern-btn + .modern-btn {
+    margin-top: var(--spacing-2);
+  }
+  
+  /* Form improvements */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    width: 100%;
+    padding: var(--spacing-3);
+  }
+}
+
+/* Mobile image optimization */
+@media (max-width: 767px) {
+  /* Hero images */
+  .hero-image {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto;
+    margin: var(--spacing-4) auto 0 auto;
+    display: block;
+  }
+  
+  /* General image responsiveness */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* AI UI thumbnails */
+  .ai-ui-thumb {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  
+  /* Feature icons */
+  .feature-icon {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-2);
+  }
+}
+
+/* Mobile navigation optimization */
+@media (max-width: 767px) {
+  /* Mobile menu improvements */
+  #mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    padding: var(--spacing-6) var(--spacing-4);
+  }
+  
+  #mobile-menu .nav-item {
+    display: block;
+    padding: var(--spacing-3) var(--spacing-4);
+    margin: var(--spacing-2) 0;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+  }
+  
+  #mobile-menu .nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Menu button */
+  #menu-btn {
+    position: fixed;
+    top: var(--spacing-4);
+    right: var(--spacing-4);
+    z-index: 1001;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: var(--spacing-2);
+    border-radius: 8px;
+    min-height: 44px;
+    min-width: 44px;
+  }
 }

@@ -4,10 +4,8 @@ export class PersonalizationManager {
     constructor() {
         this.preferences = this.loadPreferences();
         this.bookmarks = this.loadBookmarks();
-        this.progress = this.loadProgress();
         this.initCustomizableThemes();
         this.initBookmarkSystem();
-        this.initProgressTracking();
         this.applyPreferences();
     }
 
@@ -57,100 +55,6 @@ export class PersonalizationManager {
         const title = card.querySelector('h1, h2, h3')?.textContent || 'Untitled';
         const section = card.closest('section')?.id || 'unknown';
         return `${section}-${title.toLowerCase().replace(/\s+/g, '-')}`;
-    }
-
-    // Progress Tracking
-    initProgressTracking() {
-        this.createProgressTracker();
-        this.updateProgress();
-        
-        // Track user interactions
-        this.trackUserInteractions();
-    }
-
-    createProgressTracker() {
-        const tracker = document.createElement('div');
-        tracker.className = 'progress-tracker';
-        tracker.style.display = this.preferences.showProgress ? 'block' : 'none';
-        tracker.innerHTML = `
-            <div class="progress-header">
-                <span class="progress-title">Learning Progress</span>
-                <span class="progress-percentage">0%</span>
-            </div>
-            <div class="progress-bar-container">
-                <div class="progress-bar-fill" style="width: 0%"></div>
-            </div>
-            <div class="progress-stats">
-                <span>Completed: <span class="completed-count">0</span></span>
-                <span>Total: <span class="total-count">0</span></span>
-            </div>
-        `;
-        
-        document.body.appendChild(tracker);
-    }
-
-    updateProgress() {
-        const sections = document.querySelectorAll('.content-section');
-        const completedSections = this.progress.completedSections.length;
-        const totalSections = sections.length;
-        const percentage = totalSections > 0 ? Math.round((completedSections / totalSections) * 100) : 0;
-        
-        const tracker = document.querySelector('.progress-tracker');
-        if (tracker) {
-            tracker.querySelector('.progress-percentage').textContent = `${percentage}%`;
-            tracker.querySelector('.progress-bar-fill').style.width = `${percentage}%`;
-            tracker.querySelector('.completed-count').textContent = completedSections;
-            tracker.querySelector('.total-count').textContent = totalSections;
-        }
-    }
-
-    trackUserInteractions() {
-        // Track section visits
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const sectionId = entry.target.id;
-                    this.markSectionVisited(sectionId);
-                }
-            });
-        });
-
-        document.querySelectorAll('.content-section').forEach(section => {
-            observer.observe(section);
-        });
-
-        // Track time spent
-        this.trackTimeSpent();
-    }
-
-    markSectionVisited(sectionId) {
-        if (!this.progress.completedSections.includes(sectionId)) {
-            this.progress.completedSections.push(sectionId);
-            this.progress.lastVisited = new Date().toISOString();
-            this.saveProgress();
-            this.updateProgress();
-        }
-    }
-
-    trackTimeSpent() {
-        let startTime = Date.now();
-        
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                const timeSpent = Date.now() - startTime;
-                this.progress.totalTimeSpent += timeSpent;
-                this.saveProgress();
-            } else {
-                startTime = Date.now();
-            }
-        });
-    }
-
-    toggleProgressTracker() {
-        const tracker = document.querySelector('.progress-tracker');
-        if (tracker) {
-            tracker.style.display = this.preferences.showProgress ? 'block' : 'none';
-        }
     }
 
     // Customizable Themes
@@ -287,30 +191,6 @@ export class PersonalizationManager {
             localStorage.setItem('bookmarks', JSON.stringify(this.bookmarks));
         } catch (error) {
             console.error('Error saving bookmarks:', error);
-        }
-    }
-
-    loadProgress() {
-        const defaultProgress = {
-            completedSections: [],
-            totalTimeSpent: 0,
-            lastVisited: null
-        };
-
-        try {
-            const saved = localStorage.getItem('userProgress');
-            return saved ? { ...defaultProgress, ...JSON.parse(saved) } : defaultProgress;
-        } catch (error) {
-            console.error('Error loading progress:', error);
-            return defaultProgress;
-        }
-    }
-
-    saveProgress() {
-        try {
-            localStorage.setItem('userProgress', JSON.stringify(this.progress));
-        } catch (error) {
-            console.error('Error saving progress:', error);
         }
     }
 

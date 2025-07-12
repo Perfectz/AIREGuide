@@ -222,8 +222,7 @@ export class AccessibilityManager {
             }
         });
 
-        // Add high contrast toggle button
-        this.createHighContrastToggle();
+        // Removed: this.createHighContrastToggle(); // No longer creating the toggle button
     }
 
     enableHighContrastMode() {
@@ -234,34 +233,6 @@ export class AccessibilityManager {
     disableHighContrastMode() {
         document.documentElement.classList.remove('high-contrast');
         this.announceToScreenReader('High contrast mode disabled');
-    }
-
-    createHighContrastToggle() {
-        const toggle = document.createElement('button');
-        toggle.id = 'high-contrast-toggle';
-        toggle.className = 'accessibility-toggle';
-        toggle.setAttribute('aria-label', 'Toggle high contrast mode');
-        toggle.setAttribute('aria-pressed', 'false');
-        toggle.innerHTML = '🌙';
-        
-        toggle.addEventListener('click', () => {
-            const isEnabled = document.documentElement.classList.contains('high-contrast');
-            if (isEnabled) {
-                this.disableHighContrastMode();
-                toggle.setAttribute('aria-pressed', 'false');
-                toggle.innerHTML = '🌙';
-            } else {
-                this.enableHighContrastMode();
-                toggle.setAttribute('aria-pressed', 'true');
-                toggle.innerHTML = '☀️';
-            }
-        });
-
-        // Add to page
-        const header = document.querySelector('header');
-        if (header) {
-            header.appendChild(toggle);
-        }
     }
 
     // Skip Links
