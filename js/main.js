@@ -7,6 +7,7 @@ import { AccessibilityManager } from './accessibility.js';
 
 import { PersonalizationManager } from './personalization.js';
 import { ContentManager } from './content-management.js';
+import { MobileOptimizations } from './mobile-optimizations.js';
 
 
 class RealEstateApp {
@@ -95,6 +96,9 @@ class RealEstateApp {
         
         // Initialize content management
         this.contentManager = new ContentManager();
+        
+        // Initialize mobile optimizations
+        this.mobileOptimizations = new MobileOptimizations();
     }
 
     setupGlobalEventListeners() {

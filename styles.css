@@ -6522,3 +6522,199 @@ body {
     min-width: 44px;
   }
 }
+
+/* Advanced Mobile-First Optimizations */
+
+/* Lazy loading and skeleton screens */
+@media (max-width: 767px) {
+  /* Skeleton loading states */
+  .skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 4px;
+  }
+  
+  @keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  
+  /* Touch feedback improvements */
+  .touch-feedback {
+    transition: transform 0.1s ease, opacity 0.1s ease;
+  }
+  
+  .touch-feedback:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  
+  /* Improved scroll behavior */
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Better focus states for mobile */
+  .btn:focus,
+  .nav-item:focus,
+  input:focus,
+  textarea:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+  /* Optimize for mobile performance */
+  .hero-modern,
+  .modern-card,
+  .feature-card {
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  
+  /* Better text rendering */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* Improve tap targets for small screens */
+  .nav-item,
+  .btn,
+  .feature-card {
+    position: relative;
+  }
+  
+  .nav-item::before,
+  .btn::before,
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    z-index: -1;
+  }
+  
+  /* Enhanced mobile navigation */
+  #mobile-menu {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  #mobile-menu .nav-item {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  #mobile-menu .nav-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.5s;
+  }
+  
+  #mobile-menu .nav-item:active::after {
+    left: 100%;
+  }
+  
+  /* Optimize images for mobile */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  
+  /* Better mobile forms */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    -webkit-appearance: none;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+  }
+  
+  /* Mobile-specific animations */
+  .fade-in-mobile {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+  }
+  
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Progressive disclosure for mobile */
+  .mobile-collapsible {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  
+  .mobile-collapsible.expanded {
+    max-height: 1000px;
+  }
+  
+  /* Better mobile spacing for content */
+  .content-section {
+    padding: var(--spacing-4) var(--spacing-2);
+  }
+  
+  /* Optimize tables for mobile reading */
+  .modern-table {
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+  
+  .modern-table th {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+  }
+  
+  /* Mobile-specific button states */
+  .modern-btn {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .modern-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+  }
+  
+  .modern-btn:active::before {
+    width: 200px;
+    height: 200px;
+  }
+}
