@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Disallow access to JavaScript and component files
+Disallow: /js/
+Disallow: /components/
+Disallow: /.git/
+Disallow: /.idx/
+
+# Allow specific assets
+Allow: /assets/
+Allow: /favicon.ico
+Allow: /styles.css
+
+# Sitemap location (update with your actual domain)
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Crawl delay (optional - prevents aggressive crawling)
+Crawl-delay: 1
