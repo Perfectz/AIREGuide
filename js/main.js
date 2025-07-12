@@ -57,12 +57,34 @@ class RealEstateApp {
 
             // Set up mobile menu toggle
             const menuBtn = document.getElementById('menu-btn');
-            if (menuBtn) {
-                menuBtn.addEventListener('click', () => {
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    if (mobileMenu) {
-                        mobileMenu.classList.toggle('hidden');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.toggleMobileMenu();
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                        this.closeMobileMenu();
                     }
+                });
+                
+                // Close menu on escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        this.closeMobileMenu();
+                    }
+                });
+                
+                // Close menu when clicking on nav items
+                const mobileNavItems = mobileMenu.querySelectorAll('.nav-item');
+                mobileNavItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        this.closeMobileMenu();
+                    });
                 });
             }
 
@@ -121,10 +143,54 @@ class RealEstateApp {
         
         // Hide mobile menu on desktop
         if (!isMobile) {
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('hidden');
+            this.closeMobileMenu();
+        }
+    }
+    
+    toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuBtn = document.getElementById('menu-btn');
+        const body = document.body;
+        
+        if (mobileMenu && menuBtn) {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            
+            if (isHidden) {
+                // Open menu
+                mobileMenu.classList.remove('hidden');
+                menuBtn.classList.add('active');
+                body.classList.add('mobile-menu-open');
+                
+                // Focus first nav item for accessibility
+                const firstNavItem = mobileMenu.querySelector('.nav-item');
+                if (firstNavItem) {
+                    setTimeout(() => firstNavItem.focus(), 100);
+                }
+                
+                // Track menu open event
+                this.trackEvent('mobile_menu_opened');
+            } else {
+                // Close menu
+                this.closeMobileMenu();
             }
+        }
+    }
+    
+    closeMobileMenu() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuBtn = document.getElementById('menu-btn');
+        const body = document.body;
+        
+        if (mobileMenu && menuBtn) {
+            mobileMenu.classList.add('hidden');
+            menuBtn.classList.remove('active');
+            body.classList.remove('mobile-menu-open');
+            
+            // Return focus to menu button
+            menuBtn.focus();
+            
+            // Track menu close event
+            this.trackEvent('mobile_menu_closed');
         }
     }
 
