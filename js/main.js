@@ -55,16 +55,7 @@ class RealEstateApp {
                 this.navigateToSection('home');
             }
 
-            // Set up mobile menu toggle
-            const menuBtn = document.getElementById('menu-btn');
-            if (menuBtn) {
-                menuBtn.addEventListener('click', () => {
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    if (mobileMenu) {
-                        mobileMenu.classList.toggle('hidden');
-                    }
-                });
-            }
+            // Mobile menu toggle is now handled by NavigationManager
 
         } catch (error) {
             console.error('Error initializing app:', error);
@@ -124,6 +115,12 @@ class RealEstateApp {
             const mobileMenu = document.getElementById('mobile-menu');
             if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
                 mobileMenu.classList.add('hidden');
+                
+                // Update menu button aria-expanded
+                const menuBtn = document.getElementById('menu-btn');
+                if (menuBtn) {
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                }
             }
         }
     }
