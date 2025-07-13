@@ -1,103 +1,106 @@
 <!-- components/formula.html -->
 <!-- Hero Section - Modern Clean Layout -->
-<div class="hero-modern flex flex-col md:flex-row justify-between items-center min-h-[400px] px-10 py-16 bg-gradient-to-br from-indigo-50 to-white rounded-3xl shadow-xl mb-12">
+<div class="hero-modern flex flex-col md:flex-row justify-between items-center min-h-[300px] md:min-h-[400px] px-4 md:px-10 py-8 md:py-16 bg-gradient-to-br from-indigo-50 to-white rounded-2xl md:rounded-3xl shadow-xl mb-8 md:mb-12" role="banner" aria-labelledby="hero-title">
   <div class="flex-1 flex flex-col items-start">
-    <h1 class="text-5xl font-extrabold text-indigo-700 mb-2">Prompt Engineering Playbook</h1>
-    <span class="text-base font-semibold text-indigo-500 mb-4 tracking-wide">Quick Start Guide</span>
-    <p class="text-xl text-gray-700 mb-6 max-w-xl">Master the universal AI prompt formula for consistent, high-quality results in any real estate task. This comprehensive guide gives you the full "how & why" behind structured prompting—bookmark it, skim it before every listing, and share it with your team so everyone speaks the same AI language.</p>
-    <a href="mailto:pzgambo@gmail.com" class="modern-btn modern-btn-primary text-base px-6 py-2 mb-4" style="width: fit-content;">Contact Instructor</a>
+    <h1 id="hero-title" class="text-3xl md:text-5xl font-extrabold text-indigo-700 mb-2">Prompt Engineering Playbook</h1>
+    <span class="text-sm md:text-base font-semibold text-indigo-500 mb-3 md:mb-4 tracking-wide" role="doc-subtitle">Quick Start Guide</span>
+    <p class="text-base md:text-xl text-gray-700 mb-4 md:mb-6 max-w-xl">Master the universal AI prompt formula for consistent, high-quality results in any real estate task. This comprehensive guide gives you the full "how & why" behind structured prompting—bookmark it, skim it before every listing, and share it with your team so everyone speaks the same AI language.</p>
+    <a href="mailto:pzgambo@gmail.com" class="modern-btn modern-btn-primary text-sm md:text-base px-4 md:px-6 py-2 mb-4" style="width: fit-content;" aria-label="Contact instructor via email">Contact Instructor</a>
   </div>
-  <div class="flex-1 flex justify-end items-center mt-8 md:mt-0 md:ml-8">
-    <img src="assets/promptheader.png" alt="Formula Illustration" class="max-w-xs md:max-w-xl w-full h-auto rounded-2xl shadow-lg" style="max-width: 320px;" loading="lazy" />
+  <div class="flex-1 flex justify-center md:justify-end items-center mt-6 md:mt-0 md:ml-8">
+    <img src="assets/promptheader.png" alt="Visual illustration of prompt engineering concepts with AI and real estate elements" class="max-w-[200px] md:max-w-xl w-full h-auto rounded-xl md:rounded-2xl shadow-lg" loading="lazy" />
   </div>
 </div>
 
 <!-- What is Prompting? -->
-<section class="modern-section">
+<section class="modern-section" aria-labelledby="what-is-prompting">
   <div class="modern-card">
-    <h2 class="modern-section-title">What is Prompting?</h2>
+    <h2 id="what-is-prompting" class="modern-section-title">What is Prompting?</h2>
     <p><strong>Prompting</strong> is the skill of telling an AI exactly what you want it to do. A prompt is the specific command you give it. Mastering this is the difference between getting generic junk and creating marketing gold on demand.</p>
     <h3 class="modern-card-title mt-6">Types of Prompts: One-Shot vs. Few-Shot</h3>
-    <div class="modern-grid-2 gap-6 mt-4">
-      <div class="modern-card modern-alert modern-alert-info flex flex-col items-start p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mt-4" role="region" aria-labelledby="prompt-types">
+      <div class="modern-card modern-alert modern-alert-info flex flex-col items-start p-4 md:p-6" role="article">
         <div class="flex items-center mb-3">
-          <span class="text-3xl mr-3">🎯</span>
-          <span class="text-xl font-bold">One-Shot</span>
+          <span class="text-2xl md:text-3xl mr-3" aria-hidden="true">🎯</span>
+          <span class="text-lg md:text-xl font-bold">One-Shot</span>
         </div>
-        <p class="text-gray-700 text-base leading-relaxed">This is our formula. You give the AI <span class="font-semibold">one clean, detailed command</span>—one shot—and it delivers. It's your daily workhorse for getting things done fast.</p>
+        <p class="text-gray-700 text-sm md:text-base leading-relaxed">This is our formula. You give the AI <span class="font-semibold">one clean, detailed command</span>—one shot—and it delivers. It's your daily workhorse for getting things done fast.</p>
       </div>
-      <div class="modern-card modern-alert modern-alert-info flex flex-col items-start p-6">
+      <div class="modern-card modern-alert modern-alert-info flex flex-col items-start p-4 md:p-6" role="article">
         <div class="flex items-center mb-3">
-          <span class="text-3xl mr-3">🧩</span>
-          <span class="text-xl font-bold">Few-Shot</span>
+          <span class="text-2xl md:text-3xl mr-3" aria-hidden="true">🧩</span>
+          <span class="text-lg md:text-xl font-bold">Few-Shot</span>
         </div>
-        <p class="text-gray-700 text-base leading-relaxed">But when you need it to sound <span class="font-semibold">exactly like you</span>, you have to train it. You give it examples. This is <span class="italic">few-shot</span> prompting. You say, <span class="italic">"Here are two listing descriptions I wrote that crushed it. Now write a new one for this property in the exact same style."</span> You're not just giving orders; you're showing it what <span class="font-semibold">"good"</span> looks like. It's the next level for getting hyper-specific results.</p>
+        <p class="text-gray-700 text-sm md:text-base leading-relaxed">But when you need it to sound <span class="font-semibold">exactly like you</span>, you have to train it. You give it examples. This is <span class="italic">few-shot</span> prompting. You say, <span class="italic">"Here are two listing descriptions I wrote that crushed it. Now write a new one for this property in the exact same style."</span> You're not just giving orders; you're showing it what <span class="font-semibold">"good"</span> looks like. It's the next level for getting hyper-specific results.</p>
       </div>
     </div>
     <h3 class="modern-card-title mt-8">Why You Need a Formula</h3>
-    <p class="text-gray-700 text-base leading-relaxed">Forget lazy, one-line questions. If you want results, you need a formula. This is the only one you’ll ever need. Memorize it. Use it. It’s your key to turning ChatGPT into a world-class marketing assistant who works 24/7 for free.</p>
+    <p class="text-gray-700 text-base leading-relaxed">Forget lazy, one-line questions. If you want results, you need a formula. This is the only one you'll ever need. Memorize it. Use it. It's your key to turning ChatGPT into a world-class marketing assistant who works 24/7 for free.</p>
   </div>
 </section>
 
 <!-- Content Sections -->
 <div class="space-y-8">
   <!-- 2. The One‑Formula Prompt Template -->
-  <section class="modern-section">
+  <section class="modern-section" aria-labelledby="formula-template">
     <div class="modern-section-header">
-      <h2 class="modern-section-title">The One‑Formula Prompt Template</h2>
-      <p class="modern-section-subtitle">Master this universal template for consistent, high-quality results</p>
+      <h2 id="formula-template" class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 md:mb-4">The One‑Formula Prompt Template</h2>
+      <p class="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">Master this universal template for consistent, high-quality results</p>
     </div>
     <div class="modern-card">
-      <div class="prompt-template">
+      <div class="prompt-template" role="region" aria-labelledby="template-content">
         <div class="template-content">
-          <p class="text-lg">Act as a <span class="prompt-slot">[Role/Expert]</span> and write a <span class="prompt-slot">[Length & Format]</span> for <span class="prompt-slot">[Property/Client Context]</span>.<br>
-          Highlight <span class="prompt-slot">[Key Details]</span> in a <span class="prompt-slot">[Tone/Style]</span> for <span class="prompt-slot">[Target Audience]</span>.</p>
+          <p id="template-content" class="text-lg">Act as a <span class="prompt-slot" role="textbox" aria-label="Role or expert type">[Role/Expert]</span> and write a <span class="prompt-slot" role="textbox" aria-label="Length and format">[Length & Format]</span> for <span class="prompt-slot" role="textbox" aria-label="Property or client context">[Property/Client Context]</span>.<br>
+          Highlight <span class="prompt-slot" role="textbox" aria-label="Key details to emphasize">[Key Details]</span> in a <span class="prompt-slot" role="textbox" aria-label="Tone or style">[Tone/Style]</span> for <span class="prompt-slot" role="textbox" aria-label="Target audience">[Target Audience]</span>.</p>
         </div>
       </div>
       
       <h3 class="modern-card-title mt-8 mb-4">Deep‑Dive on Each Slot</h3>
       <div class="modern-card">
-        <table class="modern-table">
-          <thead>
-            <tr>
-              <th>Slot</th>
-              <th>What It Means</th>
-              <th>Quick Examples</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Role / Expert</strong></td>
-              <td>The "hat" your AI wears</td>
-              <td>award‑winning luxury copywriter · savvy first‑time‑buyer coach</td>
-            </tr>
-            <tr>
-              <td><strong>Length & Format</strong></td>
-              <td>Container & brevity</td>
-              <td>150‑word MLS blurb · 5‑line IG caption</td>
-            </tr>
-            <tr>
-              <td><strong>Property / Client Context</strong></td>
-              <td>The raw facts</td>
-              <td>3‑bed Craftsman, Inman Park, ATL</td>
-            </tr>
-            <tr>
-              <td><strong>Key Details</strong></td>
-              <td>Must‑mention features</td>
-              <td>chef's kitchen, BeltLine trail, new roof</td>
-            </tr>
-            <tr>
-              <td><strong>Tone / Style</strong></td>
-              <td>Brand voice</td>
-              <td>warm, story‑driven · data‑forward & punchy</td>
-            </tr>
-            <tr>
-              <td><strong>Target Audience</strong></td>
-              <td>Who should vibe</td>
-              <td>young professional couples · downsizing retirees</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="overflow-x-auto">
+          <table class="modern-table min-w-full" role="table" aria-labelledby="slot-breakdown">
+            <caption id="slot-breakdown" class="sr-only">Detailed breakdown of each prompt template slot</caption>
+            <thead>
+              <tr>
+                <th scope="col" class="text-left">Slot</th>
+                <th scope="col" class="text-left">What It Means</th>
+                <th scope="col" class="text-left">Quick Examples</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" class="text-left"><strong>Role / Expert</strong></th>
+                <td>The "hat" your AI wears</td>
+                <td>award‑winning luxury copywriter · savvy first‑time‑buyer coach</td>
+              </tr>
+              <tr>
+                <th scope="row" class="text-left"><strong>Length & Format</strong></th>
+                <td>Container & brevity</td>
+                <td>150‑word MLS blurb · 5‑line IG caption</td>
+              </tr>
+              <tr>
+                <th scope="row" class="text-left"><strong>Property / Client Context</strong></th>
+                <td>The raw facts</td>
+                <td>3‑bed Craftsman, Inman Park, ATL</td>
+              </tr>
+              <tr>
+                <th scope="row" class="text-left"><strong>Key Details</strong></th>
+                <td>Must‑mention features</td>
+                <td>chef's kitchen, BeltLine trail, new roof</td>
+              </tr>
+              <tr>
+                <th scope="row" class="text-left"><strong>Tone / Style</strong></th>
+                <td>Brand voice</td>
+                <td>warm, story‑driven · data‑forward & punchy</td>
+              </tr>
+              <tr>
+                <th scope="row" class="text-left"><strong>Target Audience</strong></th>
+                <td>Who should vibe</td>
+                <td>young professional couples · downsizing retirees</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div class="modern-alert modern-alert-info mt-4">
           <p><span class="font-bold">Memory Hook:</span> 
           <span class="font-mono text-blue-600">Role → Format → Facts → Features → Flavor → Fans</span></p>
@@ -107,37 +110,37 @@
   </section>
 
   <!-- 3. Six Non‑Negotiables -->
-  <section class="modern-section">
+  <section class="modern-section" aria-labelledby="non-negotiables">
     <div class="modern-section-header">
-      <h2 class="modern-section-title">Six Non‑Negotiables (with Real‑World Examples)</h2>
-      <p class="modern-section-subtitle">Master these principles to avoid common AI pitfalls</p>
+      <h2 id="non-negotiables" class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 md:mb-4">Six Non‑Negotiables (with Real‑World Examples)</h2>
+      <p class="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">Master these principles to avoid common AI pitfalls</p>
     </div>
     
 
 
     <div class="modern-card">
       <details class="modern-card mb-6">
-        <summary class="modern-card-title mb-4">1. Garbage In, Garbage Out</summary>
-        <div class="modern-card-content">
+        <summary class="modern-card-title mb-4" role="button" tabindex="0" aria-expanded="false" aria-controls="garbage-in-out">1. Garbage In, Garbage Out</summary>
+        <div id="garbage-in-out" class="modern-card-content">
           <p class="mb-4 text-gray-700">The quality of your input directly determines the quality of your output. Vague prompts produce generic results, while specific, detailed prompts create targeted, effective content.</p>
           
-          <div class="modern-grid-2 gap-6">
-            <div class="feature-card">
-              <div class="feature-icon text-green-600">✅</div>
-              <h3 class="feature-title">Specific Example</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6" role="region" aria-labelledby="garbage-examples">
+            <div class="feature-card p-4 md:p-6" role="article">
+              <div class="feature-icon text-green-600 text-2xl md:text-3xl" aria-hidden="true">✅</div>
+              <h3 class="feature-title text-lg md:text-xl">Specific Example</h3>
               <div class="feature-description">
-                <p class="font-mono text-sm mb-2"><strong>Input:</strong></p>
-                <p class="font-mono text-sm bg-green-50 p-3 rounded border-l-4 border-green-400">"2,400 sf mid‑century ranch in Decatur; updated HVAC 2023, chef's kitchen with quartz countertops, 3BR/2BA, fenced backyard, walk to MARTA. Target: young professionals, $450K range."</p>
-                <p class="text-sm text-gray-600 mt-2"><strong>Result:</strong> Detailed, targeted listing description</p>
+                <p class="font-mono text-xs md:text-sm mb-2"><strong>Input:</strong></p>
+                <p class="font-mono text-xs md:text-sm bg-green-50 p-2 md:p-3 rounded border-l-4 border-green-400">"2,400 sf mid‑century ranch in Decatur; updated HVAC 2023, chef's kitchen with quartz countertops, 3BR/2BA, fenced backyard, walk to MARTA. Target: young professionals, $450K range."</p>
+                <p class="text-xs md:text-sm text-gray-600 mt-2"><strong>Result:</strong> Detailed, targeted listing description</p>
               </div>
             </div>
-            <div class="feature-card">
-              <div class="feature-icon text-red-600">❌</div>
-              <h3 class="feature-title">Vague Example</h3>
+            <div class="feature-card p-4 md:p-6" role="article">
+              <div class="feature-icon text-red-600 text-2xl md:text-3xl" aria-hidden="true">❌</div>
+              <h3 class="feature-title text-lg md:text-xl">Vague Example</h3>
               <div class="feature-description">
-                <p class="font-mono text-sm mb-2"><strong>Input:</strong></p>
-                <p class="font-mono text-sm bg-red-50 p-3 rounded border-l-4 border-red-400">"Write a nice listing."</p>
-                <p class="text-sm text-gray-600 mt-2"><strong>Result:</strong> Generic, bland content</p>
+                <p class="font-mono text-xs md:text-sm mb-2"><strong>Input:</strong></p>
+                <p class="font-mono text-xs md:text-sm bg-red-50 p-2 md:p-3 rounded border-l-4 border-red-400">"Write a nice listing."</p>
+                <p class="text-xs md:text-sm text-gray-600 mt-2"><strong>Result:</strong> Generic, bland content</p>
               </div>
             </div>
           </div>
@@ -153,9 +156,9 @@
         <div class="modern-card-content">
           <p class="mb-4 text-gray-700">Choose your prompting strategy based on your needs: One-shot for speed, Few-shot for voice consistency and style matching.</p>
           
-          <div class="modern-grid-2 gap-6">
-            <div class="feature-card">
-              <div class="feature-icon text-blue-600">⚡</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6" role="region" aria-labelledby="shot-strategies">
+            <div class="feature-card" role="article">
+              <div class="feature-icon text-blue-600" aria-hidden="true">⚡</div>
               <h3 class="feature-title">One‑Shot Prompting</h3>
               <div class="feature-description">
                 <p class="font-semibold mb-2">Best for:</p>
@@ -169,8 +172,8 @@
                 </p>
               </div>
             </div>
-            <div class="feature-card">
-              <div class="feature-icon text-purple-600">🎯</div>
+            <div class="feature-card" role="article">
+              <div class="feature-icon text-purple-600" aria-hidden="true">🎯</div>
               <h3 class="feature-title">Few‑Shot Prompting</h3>
               <div class="feature-description">
                 <p class="font-semibold mb-2">Best for:</p>
@@ -200,9 +203,9 @@
         <div class="modern-card-content">
           <p class="mb-4 text-gray-700">AI performs best when given one clear, focused task. Multiple requests in a single prompt often result in mediocre results across all tasks.</p>
           
-          <div class="modern-grid-2 gap-6">
-            <div class="feature-card">
-              <div class="feature-icon text-green-600">✅</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6" role="region" aria-labelledby="focus-examples">
+            <div class="feature-card" role="article">
+              <div class="feature-icon text-green-600" aria-hidden="true">✅</div>
               <h3 class="feature-title">Good - Single Focus</h3>
               <div class="feature-description">
                 <p class="font-mono text-sm bg-green-50 p-3 rounded border-l-4 border-green-400">
@@ -211,8 +214,8 @@
                 <p class="text-sm text-gray-600 mt-2"><strong>Result:</strong> High-quality, focused content</p>
               </div>
             </div>
-            <div class="feature-card">
-              <div class="feature-icon text-red-600">❌</div>
+            <div class="feature-card" role="article">
+              <div class="feature-icon text-red-600" aria-hidden="true">❌</div>
               <h3 class="feature-title">Bad - Multiple Tasks</h3>
               <div class="feature-description">
                 <p class="font-mono text-sm bg-red-50 p-3 rounded border-l-4 border-red-400">
@@ -235,9 +238,9 @@
         <div class="modern-card-content">
           <p class="mb-4 text-gray-700">Setting the AI's role and personality ensures consistent tone and style that matches your brand voice and target audience.</p>
           
-          <div class="modern-grid-2 gap-6">
-            <div class="feature-card">
-              <div class="feature-icon text-red-600">❌</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6" role="region" aria-labelledby="role-examples">
+            <div class="feature-card" role="article">
+              <div class="feature-icon text-red-600" aria-hidden="true">❌</div>
               <h3 class="feature-title">Without Role Definition</h3>
               <div class="feature-description">
                 <p class="font-mono text-sm bg-red-50 p-3 rounded border-l-4 border-red-400">
@@ -246,8 +249,8 @@
                 <p class="text-sm text-gray-600 mt-2"><strong>Result:</strong> Bland, corporate voice</p>
               </div>
             </div>
-            <div class="feature-card">
-              <div class="feature-icon text-green-600">✅</div>
+            <div class="feature-card" role="article">
+              <div class="feature-icon text-green-600" aria-hidden="true">✅</div>
               <h3 class="feature-title">With Role Definition</h3>
               <div class="feature-description">
                 <p class="font-mono text-sm bg-green-50 p-3 rounded border-l-4 border-green-400">
@@ -281,9 +284,9 @@
             </div>
           </div>
           
-          <div class="modern-grid-2 gap-6">
-            <div class="feature-card">
-              <div class="feature-icon text-red-600">❌</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6" role="region" aria-labelledby="compliance-examples">
+            <div class="feature-card" role="article">
+              <div class="feature-icon text-red-600" aria-hidden="true">❌</div>
               <h3 class="feature-title">Risky Phrases</h3>
               <div class="feature-description">
                 <ul class="text-sm text-red-600 space-y-1">
@@ -295,8 +298,8 @@
                 </ul>
               </div>
             </div>
-            <div class="feature-card">
-              <div class="feature-icon text-green-600">✅</div>
+            <div class="feature-card" role="article">
+              <div class="feature-icon text-green-600" aria-hidden="true">✅</div>
               <h3 class="feature-title">Compliant Alternatives</h3>
               <div class="feature-description">
                 <ul class="text-sm text-green-600 space-y-1">
@@ -321,9 +324,9 @@
         <div class="modern-card-content">
           <p class="mb-4 text-gray-700">Your first draft is just clay. Use follow-up prompts to refine and perfect your content until it meets your standards.</p>
           
-          <div class="modern-grid-2 gap-6 mb-4">
-            <div class="feature-card">
-              <div class="feature-icon text-blue-600">🔄</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4" role="region" aria-labelledby="iteration-process">
+            <div class="feature-card" role="article">
+              <div class="feature-icon text-blue-600" aria-hidden="true">🔄</div>
               <h3 class="feature-title">Iteration Process</h3>
               <div class="feature-description">
                 <ol class="text-sm text-gray-700 space-y-2">
@@ -334,8 +337,8 @@
                 </ol>
               </div>
             </div>
-            <div class="feature-card">
-              <div class="feature-icon text-purple-600">💡</div>
+            <div class="feature-card" role="article">
+              <div class="feature-icon text-purple-600" aria-hidden="true">💡</div>
               <h3 class="feature-title">Follow-up Prompts</h3>
               <div class="feature-description">
                 <div class="code-block">
@@ -363,12 +366,12 @@
   </section>
 
   <!-- Quick Exercise -->
-  <section class="modern-section">
+  <section class="modern-section" aria-labelledby="quick-exercise">
     <div class="modern-card">
       <div class="modern-alert modern-alert-warning">
         <div class="flex items-center mb-3">
-          <span class="text-2xl mr-3">💡</span>
-          <h3 class="modern-card-title">Quick Exercise</h3>
+          <span class="text-2xl mr-3" aria-hidden="true">💡</span>
+          <h3 id="quick-exercise" class="modern-card-title">Quick Exercise</h3>
         </div>      
         <p>Write a 1‑liner prompt. Upgrade it to One‑Formula. Watch quality jump.</p>
       </div>
