@@ -1,26 +1,26 @@
 <!-- components/example-prompt.html -->
 <!-- Hero Section - Modern Clean Layout -->
-<div class="hero-modern flex flex-col md:flex-row justify-between items-center min-h-[400px] px-10 py-16 bg-gradient-to-br from-indigo-50 to-white rounded-3xl shadow-xl mb-12">
+<div class="hero-modern flex flex-col md:flex-row justify-between items-center min-h-[400px] px-10 py-16 bg-gradient-to-br from-indigo-50 to-white rounded-3xl shadow-xl mb-12 touch-feedback" role="banner" aria-labelledby="hero-title-example-prompt">
   <div class="flex-1 flex flex-col items-start">
-    <h1 class="text-5xl font-extrabold text-indigo-700 mb-2">Prompt Engineering Reference</h1>
-    <span class="text-base font-semibold text-indigo-500 mb-4 tracking-wide">Real Estate Listing Example</span>
-    <p class="text-xl text-gray-700 mb-6 max-w-xl">See the dramatic difference between basic prompts and structured formula prompts in action. This real-world example shows how proper prompt engineering transforms generic output into compelling, sales-ready content.</p>
-    <a href="#comparison" class="modern-btn modern-btn-primary text-base px-6 py-2 mb-4" style="width: fit-content;">View Comparison</a>
+    <h1 id="hero-title-example-prompt" class="text-5xl font-extrabold text-indigo-700 mb-2 fade-in-mobile">Prompt Engineering Reference</h1>
+    <span class="text-base font-semibold text-indigo-500 mb-4 tracking-wide fade-in-mobile">Real Estate Listing Example</span>
+    <p class="text-xl text-gray-700 mb-6 max-w-xl fade-in-mobile">See the dramatic difference between basic prompts and structured formula prompts in action. This real-world example shows how proper prompt engineering transforms generic output into compelling, sales-ready content.</p>
+    <a href="#comparison" class="modern-btn modern-btn-primary text-base px-6 py-2 mb-4 touch-feedback" style="width: fit-content;">View Comparison</a>
   </div>
   <div class="flex-1 flex justify-end items-center mt-8 md:mt-0 md:ml-8">
-    <img src="assets/promptexampleheader.png" alt="Prompt Example Illustration" class="max-w-xs md:max-w-xl w-full h-auto rounded-2xl shadow-lg" style="max-width: 320px;" loading="lazy" />
+    <img src="assets/promptexampleheader.png" alt="Prompt Example Illustration" class="max-w-xs md:max-w-xl w-full h-auto rounded-2xl shadow-lg fade-in-mobile" style="max-width: 320px;" loading="lazy" />
   </div>
 </div>
 
 <!-- Basic vs Structured Prompts -->
-<section class="modern-section">
+<section class="modern-section" aria-labelledby="prompt-comparison-title">
   <div class="modern-section-header">
-    <h2 class="modern-section-title">Basic vs Structured Prompts</h2>
-    <p class="modern-section-subtitle">See how proper prompt engineering transforms output quality</p>
+    <h2 id="prompt-comparison-title" class="modern-section-title fade-in-mobile">Basic vs Structured Prompts</h2>
+    <p class="modern-section-subtitle fade-in-mobile">See how proper prompt engineering transforms output quality</p>
   </div>
   
   <!-- Basic Prompt -->
-  <div class="modern-card mb-8">
+  <div class="modern-card mb-8 touch-feedback">
     <h3 class="modern-card-title mb-4">1. Basic (Unstructured) Prompt & Output</h3>
     <div class="space-y-4">
       <div>
@@ -41,7 +41,7 @@ Updated brick townhome with private patio minutes from the Chattahoochee & Perim
   </div>
 
   <!-- Structured Prompt -->
-  <div class="modern-card mb-8">
+  <div class="modern-card mb-8 touch-feedback">
     <h3 class="modern-card-title mb-4">2. Structured Prompt Formula & Output</h3>
     <div class="space-y-4">
       <div>
@@ -65,12 +65,12 @@ Why You'll Race to Write the Offer
 </section>
 
 <!-- Side-by-Side Comparison -->
-<section class="modern-section" id="comparison">
+<section class="modern-section" id="comparison" aria-labelledby="comparison-title">
   <div class="modern-section-header">
-    <h2 class="modern-section-title">What Actually Happened — Side‑by‑Side</h2>
-    <p class="modern-section-subtitle">Detailed comparison of the two approaches</p>
+    <h2 id="comparison-title" class="modern-section-title fade-in-mobile">What Actually Happened — Side‑by‑Side</h2>
+    <p class="modern-section-subtitle fade-in-mobile">Detailed comparison of the two approaches</p>
   </div>
-  <div class="modern-card">
+  <div class="modern-card touch-feedback">
     <div class="overflow-x-auto">
       <table class="modern-table">
         <thead>
@@ -133,38 +133,38 @@ Why You'll Race to Write the Offer
 </section>
 
 <!-- Why the Formula Wins -->
-<section class="modern-section">
+<section class="modern-section" aria-labelledby="formula-wins-title">
   <div class="modern-section-header">
-    <h2 class="modern-section-title">Why the Formula Wins</h2>
-    <p class="modern-section-subtitle">Six key advantages of structured prompt engineering</p>
+    <h2 id="formula-wins-title" class="modern-section-title fade-in-mobile">Why the Formula Wins</h2>
+    <p class="modern-section-subtitle fade-in-mobile">Six key advantages of structured prompt engineering</p>
   </div>
   <div class="modern-grid">
-    <div class="feature-card">
+    <div class="feature-card touch-feedback fade-in-mobile">
       <div class="feature-icon">🎭</div>
       <h3 class="feature-title">Role Priming = Authority Boost</h3>
       <p class="feature-description">"Award‑winning Atlanta copywriter" unlocks insider vocabulary & persuasive flair.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card touch-feedback fade-in-mobile">
       <div class="feature-icon">📏</div>
       <h3 class="feature-title">Length & Format Constraints = MLS‑Ready</h3>
       <p class="feature-description">180‑word cap forces headline + bullets that MLS/Zillow display perfectly.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card touch-feedback fade-in-mobile">
       <div class="feature-icon">🎯</div>
       <h3 class="feature-title">Context & Key Details = Relevance</h3>
       <p class="feature-description">Feeding granular facts (HOA fee, patio, bedroom layout) tells the model what to sell.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card touch-feedback fade-in-mobile">
       <div class="feature-icon">💬</div>
       <h3 class="feature-title">Tone + Audience Targeting = Emotional Hook</h3>
       <p class="feature-description">FOMO language resonates with young pros & small families.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card touch-feedback fade-in-mobile">
       <div class="feature-icon">⚡</div>
       <h3 class="feature-title">Bullet Highlights = Skimmability</h3>
       <p class="feature-description">5 bold bullets convey value in <8 s of eye‑scan time.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card touch-feedback fade-in-mobile">
       <div class="feature-icon">🛡️</div>
       <h3 class="feature-title">Built‑in Compliance Safety</h3>
       <p class="feature-description">Format limits reduce Fair‑Housing risk by focusing on features, not protected classes.</p>
@@ -173,12 +173,12 @@ Why You'll Race to Write the Offer
 </section>
 
 <!-- Take-Away Cheat Sheet -->
-<section class="modern-section">
+<section class="modern-section" aria-labelledby="cheat-sheet-title">
   <div class="modern-section-header">
-    <h2 class="modern-section-title">Take‑Away Cheat‑Sheet</h2>
-    <p class="modern-section-subtitle">Your quick reference for the prompt formula</p>
+    <h2 id="cheat-sheet-title" class="modern-section-title fade-in-mobile">Take‑Away Cheat‑Sheet</h2>
+    <p class="modern-section-subtitle fade-in-mobile">Your quick reference for the prompt formula</p>
   </div>
-  <div class="modern-card">
+  <div class="modern-card touch-feedback">
     <h3 class="modern-card-title mb-4">Prompt‑Formula Skeleton</h3>
     <pre class="code-block">Act as a [Role/Expert] and write a [Length & Format] for [Property/Client Context].
 Highlight [Key Details] in a [Tone/Style] for [Target Audience].</pre>
@@ -217,3 +217,9 @@ Highlight [Key Details] in a [Tone/Style] for [Target Audience].</pre>
     </div>
   </div>
 </section> 
+<style>
+  .feature-card {
+    border: 1px solid;
+    border-image: linear-gradient(to right, var(--accent), var(--background)) 1;
+  }
+</style> 

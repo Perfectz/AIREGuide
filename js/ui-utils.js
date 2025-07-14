@@ -207,6 +207,48 @@ export class NavigationManager {
                 }
             }
         });
+        
+        // Keyboard navigation for mobile menu
+        document.addEventListener('keydown', (e) => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuBtn = document.getElementById('menu-btn');
+            
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                const menuItems = mobileMenu.querySelectorAll('.mobile-nav-item');
+                const currentIndex = Array.from(menuItems).findIndex(item => item === document.activeElement);
+                
+                switch (e.key) {
+                    case 'Escape':
+                        e.preventDefault();
+                        this.closeMobileMenu();
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        if (currentIndex < menuItems.length - 1) {
+                            menuItems[currentIndex + 1].focus();
+                        } else {
+                            menuItems[0].focus();
+                        }
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        if (currentIndex > 0) {
+                            menuItems[currentIndex - 1].focus();
+                        } else {
+                            menuItems[menuItems.length - 1].focus();
+                        }
+                        break;
+                    case 'Home':
+                        e.preventDefault();
+                        menuItems[0].focus();
+                        break;
+                    case 'End':
+                        e.preventDefault();
+                        menuItems[menuItems.length - 1].focus();
+                        break;
+                }
+            }
+        });
 
         // Handle browser back/forward
         window.addEventListener('popstate', (e) => {
@@ -295,10 +337,37 @@ export class NavigationManager {
                 const isExpanded = !isHidden;
                 menuBtn.setAttribute('aria-expanded', isExpanded);
                 console.log('Menu button aria-expanded set to:', isExpanded);
+                
+                // Announce menu state to screen readers
+                const announcement = isExpanded ? 'Mobile navigation menu opened' : 'Mobile navigation menu closed';
+                this.announceToScreenReader(announcement);
+            }
+            
+            // Update aria-hidden on mobile menu
+            mobileMenu.setAttribute('aria-hidden', isHidden);
+            
+            // Focus management
+            if (!isHidden) {
+                // Focus first menu item when opening
+                const firstMenuItem = mobileMenu.querySelector('.mobile-nav-item');
+                if (firstMenuItem) {
+                    setTimeout(() => firstMenuItem.focus(), 100);
+                }
+            } else {
+                // Return focus to menu button when closing
+                if (menuBtn) {
+                    menuBtn.focus();
+                }
             }
             
             // Force a reflow to ensure changes are applied
             mobileMenu.offsetHeight;
+            
+            // Dispatch custom event for other components
+            const event = new CustomEvent('mobileMenuToggle', {
+                detail: { isOpen: !isHidden }
+            });
+            document.dispatchEvent(event);
             
         } else {
             console.warn('Mobile menu not found!');
@@ -312,14 +381,20 @@ export class NavigationManager {
 
     closeMobileMenu() {
         const mobileMenu = document.getElementById('mobile-menu');
+        const menuBtn = document.getElementById('menu-btn');
+        
         if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
             mobileMenu.classList.add('hidden');
+            mobileMenu.setAttribute('aria-hidden', 'true');
             
             // Update aria-expanded attribute
-            const menuBtn = document.getElementById('menu-btn');
             if (menuBtn) {
                 menuBtn.setAttribute('aria-expanded', 'false');
+                menuBtn.focus(); // Return focus to menu button
             }
+            
+            // Announce to screen readers
+            this.announceToScreenReader('Mobile navigation menu closed');
         }
     }
 
@@ -357,6 +432,17 @@ export class NavigationManager {
         } else if (!menuBtn) {
             console.warn('Menu button not found! DOM state:', document.readyState);
             console.warn('Available elements with menu-btn class:', document.querySelectorAll('.menu-btn, [class*="menu-btn"]'));
+        }
+    }
+
+    announceToScreenReader(message) {
+        const statusRegion = document.getElementById('status');
+        if (statusRegion) {
+            statusRegion.textContent = message;
+            // Clear the message after a short delay
+            setTimeout(() => {
+                statusRegion.textContent = '';
+            }, 3000);
         }
     }
 }

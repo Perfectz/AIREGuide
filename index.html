@@ -45,54 +45,65 @@
 </head>
 <body class="dashboard-layout text-gray-900 font-sans antialiased">
     
+    <!-- Skip Links for Accessibility -->
+    <div class="skip-links">
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+        <a href="#desktop-nav" class="skip-link">Skip to navigation</a>
+        <a href="#mobile-nav" class="skip-link">Skip to mobile navigation</a>
+    </div>
+
+    <!-- Live Regions for Screen Readers -->
+    <div id="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+    <div id="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+    
     <div class="flex min-h-screen">
         <!-- Sidebar -->
- <aside id="sidebar" class="w-64 bg-white shadow-lg flex flex-col transition-transform duration-300 ease-in-out rounded-r-2xl overflow-y-auto">
+ <aside id="sidebar" class="w-64 bg-white shadow-lg flex flex-col transition-transform duration-300 ease-in-out rounded-r-2xl overflow-y-auto" role="complementary" aria-label="Main navigation">
  <!-- Sidebar Brand/Logo - Text Only, Centered -->
 <div class="sidebar-brand flex flex-col items-center justify-center px-4 py-8">
   <span class="font-extrabold text-2xl text-gray-900 leading-tight text-center">AI Real<br>Estate<br>Playbook</span>
 </div>
 <hr class="my-4 border-gray-200" />
 
-<nav id="desktop-nav" class="flex-1 px-4 py-6 space-y-2">
-  <a href="#home" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 active-nav font-medium" data-tooltip="Welcome to the AI Playbook" aria-label="Welcome">
-    <i class="fas fa-home w-5 h-5 mr-3 text-gray-500"></i>
+<nav id="desktop-nav" class="flex-1 px-4 py-6 space-y-2" role="navigation" aria-label="Desktop navigation">
+  <a href="#home" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 active-nav font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="Welcome to the AI Playbook" aria-label="Welcome to the AI Playbook" aria-current="page">
+    <i class="fas fa-home w-5 h-5 mr-3 text-gray-500" aria-hidden="true"></i>
     <span class="text-base">Welcome</span>
   </a>
-  <a href="#chatgpt-features" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium" data-tooltip="Key ChatGPT features for real estate" aria-label="ChatGPT Features">
-    <i class="fas fa-robot w-5 h-5 mr-3 text-gray-500"></i>
+  <a href="#chatgpt-features" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="Key ChatGPT features for real estate" aria-label="ChatGPT Features for real estate">
+    <i class="fas fa-robot w-5 h-5 mr-3 text-gray-500" aria-hidden="true"></i>
     <span>ChatGPT Features</span>
   </a>
   <hr class="nav-divider" />
-  <a href="#formula" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium" data-tooltip="Prompting" aria-label="Prompting">
-    <i class="fas fa-pencil-alt w-5 h-5 mr-3 text-gray-500"></i>
+  <a href="#formula" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="Prompting" aria-label="Prompting techniques">
+    <i class="fas fa-pencil-alt w-5 h-5 mr-3 text-gray-500" aria-hidden="true"></i>
     <span>Prompting</span>
   </a>
-  <a href="#example-prompt" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium" data-tooltip="See prompt engineering in action" aria-label="Prompt Example">
-    <i class="fas fa-lightbulb w-5 h-5 mr-3 text-gray-500"></i>
+  <a href="#example-prompt" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="See prompt engineering in action" aria-label="Prompt Example - see prompt engineering in action">
+    <i class="fas fa-lightbulb w-5 h-5 mr-3 text-gray-500" aria-hidden="true"></i>
     <span>Prompt Example</span>
   </a>
   <hr class="nav-divider" />
-  <a href="#persona" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium" data-tooltip="Personas" aria-label="Personas">
-    <i class="fas fa-user-circle w-5 h-5 mr-3 text-gray-500"></i>
+  <a href="#persona" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="Personas" aria-label="Buyer Personas">
+    <i class="fas fa-user-circle w-5 h-5 mr-3 text-gray-500" aria-hidden="true"></i>
     <span>Personas</span>
   </a>
-  <a href="#copy" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium" data-tooltip="Generate ad copy and check compliance" aria-label="Ad Copy">
-    <i class="fas fa-copy w-5 h-5 mr-3 text-gray-500"></i>
+  <a href="#copy" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="Generate ad copy and check compliance" aria-label="Ad Copy Generator">
+    <i class="fas fa-copy w-5 h-5 mr-3 text-gray-500" aria-hidden="true"></i>
     <span>Ad Copy</span>
   </a>
   <hr class="nav-divider" />
-  <a href="#omnichannel" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium" data-tooltip="Multi-channel marketing automation" aria-label="Omnichannel">
-    <i class="fas fa-broadcast-tower w-5 h-5 mr-3 text-gray-500"></i>
+  <a href="#omnichannel" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="Multi-channel marketing automation" aria-label="Omnichannel Marketing">
+    <i class="fas fa-broadcast-tower w-5 h-5 mr-3 text-gray-500" aria-hidden="true"></i>
     <span>Omnichannel</span>
   </a>
-  <a href="#multimedia" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium" data-tooltip="Create multimedia content" aria-label="Multimedia">
-    <i class="fas fa-images w-5 h-5 mr-3 text-gray-500"></i>
+  <a href="#multimedia" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="Create multimedia content" aria-label="Multimedia Content Creator">
+    <i class="fas fa-images w-5 h-5 mr-3 text-gray-500" aria-hidden="true"></i>
     <span>Multimedia</span>
   </a>
   <hr class="nav-divider" />
-  <a href="#prompt-library" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium" data-tooltip="Complete prompt library with copy buttons" aria-label="Prompt Library">
-    <i class="fas fa-book w-5 h-5 mr-3 text-gray-500"></i>
+  <a href="#prompt-library" class="nav-item flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="Complete prompt library with copy buttons" aria-label="Prompt Library">
+    <i class="fas fa-book w-5 h-5 mr-3 text-gray-500" aria-hidden="true"></i>
     <span>Prompt Library</span>
   </a>
 </nav>
@@ -106,16 +117,16 @@
     
 
                 <!-- Main content -->
-        <main class="flex-1">
+        <main class="flex-1" role="main" id="main-content">
             <!-- Mobile Header -->
-            <header class="md:hidden flex items-center justify-between p-4 bg-white border-b border-gray-200 shadow-sm">
+            <header class="md:hidden flex items-center justify-between p-4 bg-white border-b border-gray-200 shadow-sm" role="banner" aria-label="Mobile header">
                 <div class="flex items-center space-x-4">
-                    <div class="w-8 h-8 bg-indigo-500 rounded-md flex items-center justify-center text-white font-bold text-sm shadow-md">
+                    <div class="w-8 h-8 bg-indigo-500 rounded-md flex items-center justify-center text-white font-bold text-sm shadow-md" aria-hidden="true">
                         AI
                     </div>
                     <h1 class="text-xl font-semibold text-gray-800">AI Real Estate Playbook</h1>
                 </div>
-                <button id="menu-btn" class="touch-target p-2 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-colors" aria-label="Toggle mobile menu" data-tooltip="Toggle navigation menu">
+                <button id="menu-btn" class="touch-target p-3 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" aria-label="Toggle mobile navigation menu" aria-expanded="false" aria-controls="mobile-menu" data-tooltip="Toggle navigation menu">
                     <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-4 6h10"></path>
                     </svg>
@@ -123,46 +134,46 @@
             </header>
             
             <!-- Mobile menu, show/hide based on menu state. -->
-            <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg rounded-b-lg text-gray-700">
+            <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg rounded-b-lg text-gray-700" role="navigation" aria-label="Mobile navigation" aria-hidden="true">
                 <nav id="mobile-nav" class="p-4 space-y-2">
-                    <a href="#home" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg active-nav hover:bg-gray-100 text-indigo-600 font-medium" data-tooltip="Welcome to the AI Playbook">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m0 0l7 7m-2 2v-5a1 1 0 00-1-1H9a1 1 0 00-1 1v5"></path></svg>
+                    <a href="#home" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg active-nav hover:bg-gray-100 text-indigo-600 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="Welcome to the AI Playbook" aria-label="Welcome to the AI Playbook" aria-current="page">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m0 0l7 7m-2 2v-5a1 1 0 00-1-1H9a1 1 0 00-1 1v5"></path></svg>
                         <span class="font-medium">Welcome</span>
                     </a>
-                    <a href="#chatgpt-features" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium" data-tooltip="Key ChatGPT features for real estate">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    <a href="#chatgpt-features" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="Key ChatGPT features for real estate" aria-label="ChatGPT Features for real estate">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                         <span class="font-medium">ChatGPT Features</span>
                     </a>
                     <hr class="nav-divider border-gray-200 my-2" />
-                    <a href="#formula" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium" data-tooltip="Prompting">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2v5a2 2 0 01-2 2H9a2 2 0 01-2-2V9a2 2 0 012-2h6z"></path></svg>
+                    <a href="#formula" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="Prompting" aria-label="Prompting techniques">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2v5a2 2 0 01-2 2H9a2 2 0 01-2-2V9a2 2 0 012-2h6z"></path></svg>
                         <span class="font-medium">Prompting</span>
                     </a>
-                    <a href="#example-prompt" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium" data-tooltip="See prompt engineering in action">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <a href="#example-prompt" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="See prompt engineering in action" aria-label="Prompt Example - see prompt engineering in action">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                         <span class="font-medium">Prompt Example</span>
                     </a>
                     <hr class="nav-divider border-gray-200 my-2" />
-                    <a href="#persona" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium" data-tooltip="Personas">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-5a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <a href="#persona" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="Personas" aria-label="Buyer Personas">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-5a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                         <span class="font-medium">Personas</span>
                     </a>
-                    <a href="#copy" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium" data-tooltip="Generate ad copy and check compliance">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.536L15.232 5.232z"></path></svg>
+                    <a href="#copy" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="Generate ad copy and check compliance" aria-label="Ad Copy Generator">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.536L15.232 5.232z"></path></svg>
                         <span class="font-medium">Ad Copy</span>
                     </a>
                     <hr class="nav-divider border-gray-200 my-2" />
-                    <a href="#omnichannel" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium" data-tooltip="Multi-channel marketing automation">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.913 9.913 0 01-3.097-.356A6.028 6.028 0 006 20c-1.657 0-3-.895-3-2s1.343-2 3-2c1.105 0 2.004.285 2.855.798A9.913 9.913 0 0112 4c4.97 0 9 3.582 9 8z"></path></svg>
+                    <a href="#omnichannel" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="Multi-channel marketing automation" aria-label="Omnichannel Marketing">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.913 9.913 0 01-3.097-.356A6.028 6.028 0 006 20c-1.657 0-3-.895-3-2s1.343-2 3-2c1.105 0 2.004.285 2.855.798A9.913 9.913 0 0112 4c4.97 0 9 3.582 9 8z"></path></svg>
                         <span class="font-medium">Omnichannel</span>
                     </a>
-                    <a href="#multimedia" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium" data-tooltip="Create multimedia content">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <a href="#multimedia" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="Create multimedia content" aria-label="Multimedia Content Creator">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         <span class="font-medium">Multimedia</span>
                     </a>
                     <hr class="nav-divider border-gray-200 my-2" />
-                    <a href="#prompt-library" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium" data-tooltip="Complete prompt library with copy buttons">
-                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18s-3.332.477-4.5 1.253"></path></svg>
+                    <a href="#prompt-library" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" data-tooltip="Complete prompt library with copy buttons" aria-label="Prompt Library">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18s-3.332.477-4.5 1.253"></path></svg>
                         <span class="font-medium">Prompt Library</span>
                     </a>
 
@@ -172,46 +183,46 @@
                         <!-- Content Container -->
             <div class="dashboard-container">
                 <!-- Welcome Section -->
-                <section id="home" class="content-section active">
+                <section id="home" class="content-section active" aria-labelledby="home-title">
                     <!-- Component content will be loaded here -->
                 </section>
 
                 <!-- The Core Formula Section -->
-                <section id="chatgpt-features" class="content-section">
+                <section id="chatgpt-features" class="content-section" aria-labelledby="chatgpt-features-title">
                     <!-- Component content will be loaded here -->
                 </section>
                 
-                <section id="formula" class="content-section">
+                <section id="formula" class="content-section" aria-labelledby="formula-title">
                     <!-- Component content will be loaded here -->
                 </section>
                 
                 <!-- Example Prompt Section -->
-                <section id="example-prompt" class="content-section">
+                <section id="example-prompt" class="content-section" aria-labelledby="example-prompt-title">
                     <!-- Component content will be loaded here -->
                 </section>
                 
                 <!-- Know Your Buyer Section -->
-                <section id="persona" class="content-section">
+                <section id="persona" class="content-section" aria-labelledby="persona-title">
                     <!-- Component content will be loaded here -->
                 </section>
 
                 <!-- Instant Ad Copy Section -->
-                <section id="copy" class="content-section">
+                <section id="copy" class="content-section" aria-labelledby="copy-title">
                     <!-- Component content will be loaded here -->
                 </section>
                 
                 <!-- Omnichannel Section -->
-                <section id="omnichannel" class="content-section">
+                <section id="omnichannel" class="content-section" aria-labelledby="omnichannel-title">
                     <!-- Component content will be loaded here -->
                 </section>
                 
                 <!-- Multimedia Section -->
-                <section id="multimedia" class="content-section">
+                <section id="multimedia" class="content-section" aria-labelledby="multimedia-title">
                     <!-- Component content will be loaded here -->
                 </section>
                 
                 <!-- Prompt Library Section -->
-                <section id="prompt-library" class="content-section">
+                <section id="prompt-library" class="content-section" aria-labelledby="prompt-library-title">
                     <!-- Component content will be loaded here -->
                 </section>
             </div>
@@ -219,9 +230,9 @@
     </div>
 
         <!-- Professional Modal Structure (Tailwind styled) -->
-    <div id="modal-container" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div id="modal-container" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-content">
         <div class="bg-white rounded-xl p-6 w-full max-w-md relative shadow-xl">
-            <button id="modal-close" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl font-bold" aria-label="Close modal">&times;</button>
+            <button id="modal-close" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl font-bold focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" aria-label="Close modal">&times;</button>
             <h3 id="modal-title" class="text-2xl font-bold mb-4 text-gray-800"></h3>
             <div id="modal-content" class="text-gray-700 leading-relaxed"></div>
         </div>

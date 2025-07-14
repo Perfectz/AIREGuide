@@ -91,6 +91,9 @@ export class AccessibilityManager {
         if (menuBtn) {
             menuBtn.setAttribute('aria-expanded', 'false');
         }
+        
+        // Announce to screen readers
+        this.announceToScreenReader('Mobile navigation menu closed');
     }
 
     closeModal() {
