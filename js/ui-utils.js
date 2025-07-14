@@ -119,7 +119,7 @@ export class TooltipManager {
 export class NavigationManager {
     constructor() {
         this.currentSection = 'home';
-        this.sections = ['home', 'chatgpt-features', 'formula', 'example-prompt', 'persona', 'copy', 'omnichannel', 'multimedia', 'prompts', 'prompt-library'];
+        this.sections = ['home', 'chatgpt-features', 'formula', 'example-prompt', 'persona', 'copy', 'omnichannel', 'multimedia', 'multimedia-example', 'prompt-library'];
         
         // Ensure DOM is ready before initializing
         if (document.readyState === 'loading') {
@@ -130,12 +130,10 @@ export class NavigationManager {
     }
 
     init() {
-        console.log('NavigationManager init called');
         
         // Desktop navigation
         const desktopNav = document.getElementById('desktop-nav');
         if (desktopNav) {
-            console.log('Desktop nav found');
             desktopNav.addEventListener('click', (e) => {
                 if (e.target.closest('.nav-item')) {
                     e.preventDefault();
@@ -144,7 +142,6 @@ export class NavigationManager {
                 }
             });
         } else {
-            console.warn('Desktop nav not found');
         }
 
         // Mobile navigation
@@ -182,7 +179,6 @@ export class NavigationManager {
         // Fallback: Use event delegation on document for menu button clicks
         document.addEventListener('click', (e) => {
             if (e.target.closest('#menu-btn')) {
-                console.log('Menu button clicked via event delegation!');
                 e.preventDefault();
                 e.stopPropagation();
                 this.toggleMobileMenu();
@@ -316,27 +312,19 @@ export class NavigationManager {
     }
 
     toggleMobileMenu() {
-        console.log('toggleMobileMenu called');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuBtn = document.getElementById('menu-btn');
         
         if (mobileMenu) {
-            console.log('Mobile menu found, current classes:', mobileMenu.className);
-            console.log('Mobile menu current display:', getComputedStyle(mobileMenu).display);
             
-            const wasHidden = mobileMenu.classList.contains('hidden');
-            mobileMenu.classList.toggle('hidden');
-            const isHidden = mobileMenu.classList.contains('hidden');
-            
-            console.log('Mobile menu toggled:', wasHidden, '→', isHidden);
-            console.log('Mobile menu classes after toggle:', mobileMenu.className);
-            console.log('Mobile menu display after toggle:', getComputedStyle(mobileMenu).display);
+            const wasHidden = mobileMenu.classList.contains('hidden-mobile');
+            mobileMenu.classList.toggle('hidden-mobile');
+            const isHidden = mobileMenu.classList.contains('hidden-mobile');
             
             // Update aria-expanded attribute for accessibility
             if (menuBtn) {
                 const isExpanded = !isHidden;
                 menuBtn.setAttribute('aria-expanded', isExpanded);
-                console.log('Menu button aria-expanded set to:', isExpanded);
                 
                 // Announce menu state to screen readers
                 const announcement = isExpanded ? 'Mobile navigation menu opened' : 'Mobile navigation menu closed';
@@ -383,8 +371,8 @@ export class NavigationManager {
         const mobileMenu = document.getElementById('mobile-menu');
         const menuBtn = document.getElementById('menu-btn');
         
-        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-            mobileMenu.classList.add('hidden');
+        if (mobileMenu && !mobileMenu.classList.contains('hidden-mobile')) {
+            mobileMenu.classList.add('hidden-mobile');
             mobileMenu.setAttribute('aria-hidden', 'true');
             
             // Update aria-expanded attribute
@@ -401,20 +389,9 @@ export class NavigationManager {
     initializeMobileMenuToggle() {
         const menuBtn = document.getElementById('menu-btn');
         if (menuBtn && !menuBtn.hasAttribute('data-initialized')) {
-            console.log('Menu button found, adding click listener');
-            
-            // Check if button is actually visible
-            const isVisible = getComputedStyle(menuBtn).display !== 'none' && 
-                             getComputedStyle(menuBtn).visibility !== 'hidden' &&
-                             getComputedStyle(menuBtn.parentElement).display !== 'none';
-            
-            console.log('Menu button visibility:', isVisible);
-            console.log('Menu button parent classes:', menuBtn.parentElement.className);
-            console.log('Window width:', window.innerWidth);
             
             // Add multiple event types for better compatibility
             const clickHandler = (e) => {
-                console.log('Menu button clicked!', e.type);
                 e.preventDefault();
                 e.stopPropagation();
                 this.toggleMobileMenu();
@@ -428,7 +405,6 @@ export class NavigationManager {
             menuBtn.setAttribute('aria-expanded', 'false');
             menuBtn.setAttribute('data-initialized', 'true');
             
-            console.log('Event listeners attached to menu button');
         } else if (!menuBtn) {
             console.warn('Menu button not found! DOM state:', document.readyState);
             console.warn('Available elements with menu-btn class:', document.querySelectorAll('.menu-btn, [class*="menu-btn"]'));

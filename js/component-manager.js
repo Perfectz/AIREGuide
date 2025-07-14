@@ -23,7 +23,7 @@ export class ComponentManager {
     async loadAllComponents() {
         const componentSections = [
             'home', 'chatgpt-features', 'formula', 'example-prompt', 'persona', 'copy', 
-            'omnichannel', 'multimedia', 'prompt-library'
+            'omnichannel', 'multimedia', 'multimedia-example', 'prompt-library'
         ];
 
         const loadPromises = componentSections.map(section => 
@@ -32,7 +32,6 @@ export class ComponentManager {
 
         try {
             await Promise.all(loadPromises);
-            console.log('All components loaded successfully');
         } catch (error) {
             console.error('Error loading components:', error);
         }
@@ -150,12 +149,10 @@ export class ComponentManager {
 
     async initializeHome() {
         // Home component doesn't need special initialization
-        console.log('Home component initialized');
     }
 
     async initializeChatGPTFeatures() {
         // ChatGPT Features component doesn't need special initialization
-        console.log('ChatGPT Features component initialized');
     }
 
     async initializeFormula() {
@@ -190,7 +187,6 @@ export class ComponentManager {
 
     async initializeExamplePrompt() {
         // Example prompt component doesn't need special initialization
-        console.log('Example prompt component initialized');
     }
 
 
@@ -219,7 +215,6 @@ export class ComponentManager {
         
         try {
             await Promise.all(preloadPromises);
-            console.log('Preloaded components:', componentNames);
         } catch (error) {
             console.error('Error preloading components:', error);
         }

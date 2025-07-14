@@ -144,7 +144,6 @@ export class MobileOptimizations {
     }
 
     logPerformanceMetric(metric, value) {
-        console.log(`Mobile Performance - ${metric}: ${value}ms`);
         // Could send to analytics here
     }
 

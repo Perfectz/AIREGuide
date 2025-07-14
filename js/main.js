@@ -45,8 +45,6 @@ class RealEstateApp {
             // Initialize any additional features
             this.initializeAdditionalFeatures();
             
-            console.log('Real Estate Training App initialized successfully');
-            
             // Initialize with current hash or default to home
             const hash = window.location.hash.substring(1);
             if (hash) {
@@ -264,7 +262,6 @@ class RealEstateApp {
     trackPageView() {
         // Simple analytics tracking
         const page = window.location.hash || '#home';
-        console.log('Page view:', page);
         
         // You could integrate with Google Analytics or other services here
         if (typeof gtag !== 'undefined') {
@@ -275,7 +272,6 @@ class RealEstateApp {
     }
 
     trackEvent(eventName, parameters = {}) {
-        console.log('Event tracked:', eventName, parameters);
         
         // You could integrate with Google Analytics or other services here
         if (typeof gtag !== 'undefined') {
@@ -300,7 +296,6 @@ class RealEstateApp {
         const observer = new PerformanceObserver((list) => {
             for (const entry of list.getEntries()) {
                 if (entry.entryType === 'navigation') {
-                    console.log('Navigation timing:', entry);
                 }
             }
         });
