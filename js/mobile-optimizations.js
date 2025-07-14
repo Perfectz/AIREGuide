@@ -9,12 +9,26 @@ export class MobileOptimizations {
     }
 
     init() {
+        this.initializeMenu();
         if (this.isMobile) {
             this.initializeLazyLoading();
             this.initializeTouchGestures();
             this.initializePerformanceMonitoring();
             this.initializeMobileSpecificFeatures();
             this.initializeSkeletonScreens();
+        }
+    }
+
+    initializeMenu() {
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+                menuBtn.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('hidden');
+            });
         }
     }
 
