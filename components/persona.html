@@ -5,10 +5,10 @@
     <h1 id="hero-title-persona" class="text-5xl font-extrabold text-indigo-700 mb-2 fade-in-mobile">Build Powerful Personas</h1>
     <span class="text-base font-semibold text-indigo-500 mb-4 tracking-wide fade-in-mobile">Connect Your Brand to Client Needs</span>
     <p class="text-xl text-gray-700 mb-6 max-w-xl fade-in-mobile">Discover how your unique brand voice connects with your ideal clients' needs to build trust and close more deals.</p>
-    <a href="mailto:pzgambo@gmail.com" class="modern-btn modern-btn-primary text-base px-6 py-2 mb-4 touch-feedback" style="width: fit-content;">Email Instructor</a>
+    <a href="mailto:pzgambo@gmail.com" class="modern-btn modern-btn-primary text-base px-6 py-2 mb-4 touch-feedback">Email Instructor</a>
   </div>
   <div class="flex-1 flex justify-end items-center mt-8 md:mt-0 md:ml-8">
-    <img src="assets/personaheader.png" alt="Buyer Persona Illustration" class="max-w-xs md:max-w-xl w-full h-auto rounded-2xl shadow-lg fade-in-mobile" style="max-width: 320px;" loading="lazy" />
+    <img src="assets/personaheader.png" alt="Buyer Persona Illustration" class="max-w-xs md:max-w-xl w-full h-auto rounded-2xl shadow-lg fade-in-mobile" loading="lazy" />
   </div>
 </div>
 
@@ -117,7 +117,7 @@
     <div class="modern-card touch-feedback">
       <h3 class="modern-card-title mb-4">To Define Your Brand Voice</h3>
       <div class="relative">
-        <button class="copy-btn absolute top-2 right-2 bg-gray-800 hover:bg-gray-700 text-white text-xs px-2 py-1 rounded transition-colors touch-feedback" onclick="copyToClipboard(this, 'brand-voice-prompt')">
+        <button class="copy-btn absolute top-2 right-2 bg-gray-800 hover:bg-gray-700 text-white text-xs px-2 py-1 rounded transition-colors touch-feedback" data-copy-target="brand-voice-prompt">
            Copy
         </button>
         <pre class="code-block" id="brand-voice-prompt">Act as a branding expert. Analyze these three writing samples from my business to identify my unique brand voice. Based on your analysis, create a 5-bullet-point list of 'My Voice Rules' that define my communication style, tone, and key phrases.
@@ -132,7 +132,7 @@ Sample 3: [Paste a snippet from your website's 'About Me' page here]</pre>
     <div class="modern-card touch-feedback">
       <h3 class="modern-card-title mb-4">To Create a Customer Persona</h3>
       <div class="relative">
-        <button class="copy-btn absolute top-2 right-2 bg-gray-800 hover:bg-gray-700 text-white text-xs px-2 py-1 rounded transition-colors touch-feedback" onclick="copyToClipboard(this, 'customer-persona-prompt')">
+        <button class="copy-btn absolute top-2 right-2 bg-gray-800 hover:bg-gray-700 text-white text-xs px-2 py-1 rounded transition-colors touch-feedback" data-copy-target="customer-persona-prompt">
            Copy
         </button>
         <pre class="code-block" id="customer-persona-prompt">Act as a real estate market analyst for Atlanta, GA. I want to create a detailed buyer persona for a 'First-Time Homebuyer'. Use the following data points and supplement with your knowledge of public demographic and social media trends:
@@ -306,63 +306,6 @@ Task: Generate a one-page profile for 'First-Time Felicia'. Include her likely j
     </div>
   </div>
 </section>
-
-<script>
-// Copy to clipboard functionality for persona page
-function copyToClipboard(button, elementId) {
-    const element = document.getElementById(elementId);
-    if (!element) return;
-
-    const text = element.textContent;
-
-    // Use the existing ClipboardManager if available
-    if (window.ClipboardManager) {
-        window.ClipboardManager.copyToClipboard(text).then(success => {
-            if (success) {
-                showCopyFeedback(button);
-            }
-        });
-    } else {
-        // Fallback implementation
-        navigator.clipboard.writeText(text).then(() => {
-            showCopyFeedback(button);
-        }).catch(() => {
-            // Fallback for older browsers
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            textArea.style.position = 'fixed';
-            textArea.style.left = '-999999px';
-            textArea.style.top = '-999999px';
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-
-            try {
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                showCopyFeedback(button);
-            } catch (err) {
-                document.body.removeChild(textArea);
-                console.error('Failed to copy text');
-            }
-        });
-    }
-}
-
-function showCopyFeedback(button) {
-    const originalText = button.textContent;
-    button.textContent = '✅ Copied!';
-    button.classList.add('bg-green-600');
-    button.classList.remove('bg-gray-800', 'hover:bg-gray-700');
-
-    setTimeout(() => {
-        button.textContent = originalText;
-        button.classList.remove('bg-green-600');
-        button.classList.add('bg-gray-800', 'hover:bg-gray-700');
-    }, 2000);
-}
-</script>
-
 <!-- Footer -->
 <footer class="mt-8 text-center text-gray-500">
     <a href="#copy" class="modern-btn modern-btn-primary">Next Page</a>

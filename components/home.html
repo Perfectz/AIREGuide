@@ -4,14 +4,14 @@
     <h1 class="text-5xl font-extrabold text-indigo-700 mb-2 fade-in-mobile">AI-Driven Real Estate</h1>
     <span class="text-base font-semibold text-indigo-500 mb-4 tracking-wide fade-in-mobile">Quick Wins Guide</span>
     <p class="text-xl text-gray-700 mb-6 max-w-xl fade-in-mobile">I'm Patrick, your AI Solutions Architect. Today we'll slice through the hype and hand you a field-ready AI playbook—covering the best text, image, and video tools for real estate. Grab the guide, plug in the tactics, and get operational fast—let's dive in!</p>
-    <a href="mailto:pzgambo@gmail.com" class="modern-btn modern-btn-primary text-base px-6 py-2 mb-4 touch-feedback" style="width: fit-content;">Email Instructor</a>
-  </div>
+    <a href="mailto:pzgambo@gmail.com" class="modern-btn modern-btn-primary text-base px-6 py-2 mb-4 touch-feedback">Email Instructor</a>
+</div>
   <div class="flex-1 flex justify-end items-center mt-8 md:mt-0 md:ml-8">
-    <img src="assets/homeheader.png" alt="AI Real Estate Header Illustration" class="max-w-xs md:max-w-xl w-full h-auto rounded-2xl shadow-lg fade-in-mobile" style="max-width: 320px;" loading="lazy" />
+    <img src="assets/homeheader.png" alt="AI Real Estate Header Illustration" class="max-w-xs md:max-w-xl w-full h-auto rounded-2xl shadow-lg fade-in-mobile" loading="lazy" />
   </div>
 </div>
 
-<!-- Quick Start Guide Section -->
+<!-- Quick Start Guide Section - Updated collapsible styling for mobile -->
 <section class="quickstart-section modern-section mb-8">
   <div class="modern-card max-w-2xl mx-auto p-6 flex flex-col gap-4 touch-feedback">
     <h2 class="text-2xl font-bold text-indigo-700 mb-2 fade-in-mobile">Quick Start Guide: What You'll Need to Follow Along</h2>
@@ -85,7 +85,7 @@
 </section>
 
 <!-- The Big-Three Toolkit & AI Systems Combined Section -->
-<section class="modern-section">
+<section class="modern-section" aria-labelledby="toolkit-title">
   <div class="modern-section-header">
     <h2 class="modern-section-title fade-in-mobile">The Big-Three Toolkit</h2>
     <p class="modern-section-subtitle fade-in-mobile">Don't chase every shiny object—pick one platform, learn it cold, execute.</p>
@@ -181,55 +181,8 @@
       </div>
     </div>
   </div>
-  <!-- Modal for fullscreen image -->
-  <div id="ai-ui-modal" class="ai-ui-modal" style="display:none;">
-    <div class="ai-ui-modal-backdrop" tabindex="-1"></div>
-    <img id="ai-ui-modal-img" src="" alt="AI UI Fullscreen" />
-    <button id="ai-ui-modal-close" class="ai-ui-modal-close" aria-label="Close fullscreen">&times;</button>
-  </div>
 </section>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Initialize mobile collapsible functionality
-  const collapsibleTrigger = document.querySelector('.mobile-collapsible-trigger');
-  const collapsibleContent = document.querySelector('.mobile-collapsible');
-  
-  if (collapsibleTrigger && collapsibleContent) {
-    collapsibleTrigger.addEventListener('click', () => {
-      collapsibleContent.classList.toggle('expanded');
-    });
-  }
-
-  // Fullscreen modal for UI images
-  const thumbs = document.querySelectorAll('.ai-ui-thumb');
-  const modal = document.getElementById('ai-ui-modal');
-  const modalImg = document.getElementById('ai-ui-modal-img');
-  const modalClose = document.getElementById('ai-ui-modal-close');
-  const modalBackdrop = document.querySelector('.ai-ui-modal-backdrop');
-  
-  thumbs.forEach(img => {
-    img.addEventListener('click', () => {
-      modalImg.src = img.dataset.full;
-      modal.style.display = 'block';
-    });
-  });
-
-  const closeModal = () => {
-    modal.style.display = 'none';
-  };
-
-  modalClose.addEventListener('click', closeModal);
-  modalBackdrop.addEventListener('click', closeModal);
-
-  // Close modal on escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.style.display === 'block') {
-      closeModal();
-    }
-  });
-});
-</script>
 <div id="carousel-live" class="sr-only" aria-live="polite"></div> 
 <!-- ... (rest of the content) ... -->
 
@@ -239,8 +192,4 @@ document.addEventListener('DOMContentLoaded', function() {
     <p class="mt-2 text-sm text-gray-600">&copy; Perfect Z Consulting : Patrick Mukuka Zgambo | <a href="https://www.linkedin.com/in/patrick-zgambo/" target="_blank" class="text-indigo-600 hover:text-indigo-800">LinkedIn</a></p>
 </footer>
 <style>
-.feature-card {
-  border: 1px solid;
-  border-image: linear-gradient(to right, var(--accent), var(--background)) 1;
-}
 </style> 

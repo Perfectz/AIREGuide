@@ -22,12 +22,14 @@ export class MobileOptimizations {
     initializeMenu() {
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
 
-        if (menuBtn && mobileMenu) {
+        if (menuBtn && mobileMenu && mobileMenuOverlay) {
             menuBtn.addEventListener('click', () => {
                 const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
                 menuBtn.setAttribute('aria-expanded', !isExpanded);
-                mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('is-open'); // Use 'is-open' class
+                mobileMenuOverlay.classList.toggle('hidden'); // Toggle overlay visibility
             });
         }
     }
@@ -59,13 +61,15 @@ export class MobileOptimizations {
 
     // Touch gesture support
     initializeTouchGestures() {
-        // Swipe navigation
         document.addEventListener('touchstart', (e) => {
+            // Check if the touch started on an interactive element
+            if (this.isInteractiveElement(e.target)) {
+                return; // Do not track swipe if it starts on an interactive element
+            }
             this.touchStartY = e.touches[0].clientY;
         }, { passive: true });
 
         document.addEventListener('touchend', (e) => {
-            this.touchEndY = e.changedTouches[0].clientY;
             this.handleSwipeGesture();
         }, { passive: true });
 
@@ -74,6 +78,13 @@ export class MobileOptimizations {
         touchElements.forEach(element => {
             element.classList.add('touch-feedback');
         });
+    }
+
+    isInteractiveElement(element) {
+        const interactiveTags = ['A', 'BUTTON', 'INPUT', 'SELECT', 'TEXTAREA', 'LABEL'];
+        const interactiveClasses = ['.btn', '.nav-item', '.feature-card', '.copy-prompt-btn', '.customize-prompt-btn', '.modal-close'];
+        return interactiveTags.includes(element.tagName) ||
+               interactiveClasses.some(className => element.closest(className));
     }
 
     handleSwipeGesture() {

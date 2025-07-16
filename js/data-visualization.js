@@ -74,6 +74,8 @@ class DataVisualization {
             data: data,
             options: {
                 responsive: true,
+                // For accessibility, consider providing the chart data in a table format
+                // or as descriptive text alternatives for screen reader users.
                 interaction: {
                     mode: 'index',
                     intersect: false,
@@ -156,6 +158,8 @@ class DataVisualization {
             data: data,
             options: {
                 responsive: true,
+                // For accessibility, consider providing the chart data in a table format
+                // or as descriptive text alternatives for screen reader users.
                 plugins: {
                     legend: {
                         position: 'bottom',
@@ -193,28 +197,30 @@ class DataVisualization {
         const metricsContainer = document.getElementById('performanceMetrics');
         if (!metricsContainer) return;
 
+        const metricIcons = {
+            totalPrompts: '📝',
+            successRate: '✅',
+            timeSaved: '⏱️',
+            averageRating: '⭐'
+        };
+        const metricLabels = {
+            totalPrompts: 'Prompts Generated',
+            successRate: 'Success Rate',
+            timeSaved: 'Time Saved',
+            averageRating: 'Average Rating'
+        };
+
+        const metricCardsHTML = Object.keys(this.metrics).map(key => `
+                <div class="metric-card">
+                    <div class="metric-icon">${metricIcons[key]}</div>
+                    <div class="metric-value">${this.metrics[key]}${key === 'successRate' ? '%' : key === 'timeSaved' ? 'h' : ''}</div>
+                    <div class="metric-label">${metricLabels[key]}</div>
+                </div>
+        `).join('');
+
         metricsContainer.innerHTML = `
             <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-icon">📝</div>
-                    <div class="metric-value">${this.metrics.totalPrompts}</div>
-                    <div class="metric-label">Prompts Generated</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-icon">✅</div>
-                    <div class="metric-value">${this.metrics.successRate}%</div>
-                    <div class="metric-label">Success Rate</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-icon">⏱️</div>
-                    <div class="metric-value">${this.metrics.timeSaved}h</div>
-                    <div class="metric-label">Time Saved</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-icon">⭐</div>
-                    <div class="metric-value">${this.metrics.averageRating}</div>
-                    <div class="metric-label">Average Rating</div>
-                </div>
+                ${metricCardsHTML}
             </div>
         `;
     }
@@ -258,6 +264,7 @@ class DataVisualization {
                 
                 <div class="builder-output">
                     <button class="btn btn-primary" onclick="dataViz.generatePrompt()">
+                        <!-- Ensure button has sufficient touch target size on mobile -->
                         <span class="btn-icon">🚀</span>
                         Generate Prompt
                     </button>
@@ -266,6 +273,7 @@ class DataVisualization {
                         Save Template
                     </button>
                     <button class="btn btn-ghost" onclick="dataViz.clearPrompt()">
+                        <!-- Ensure button has sufficient touch target size on mobile -->
                         <span class="btn-icon">🗑️</span>
                         Clear
                     </button>
@@ -280,6 +288,7 @@ class DataVisualization {
         document.querySelectorAll('.tool-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const component = e.currentTarget.dataset.component;
+                // Ensure toolbar buttons have sufficient touch target size in CSS
                 this.addPromptComponent(component);
             });
         });
@@ -293,11 +302,13 @@ class DataVisualization {
             persona: {
                 title: 'Buyer Persona',
                 content: `
+                    <!-- Add ARIA attributes to dynamically added inputs -->
                     <div class="component-input">
                         <label>Persona Name:</label>
                         <input type="text" placeholder="e.g., Urban Starter" class="component-field">
                     </div>
                     <div class="component-input">
+                        <!-- Add ARIA attributes to dynamically added textareas -->
                         <label>Key Characteristics:</label>
                         <textarea placeholder="Describe their needs, pain points, and preferences" class="component-field"></textarea>
                     </div>
@@ -306,6 +317,7 @@ class DataVisualization {
             property: {
                 title: 'Property Details',
                 content: `
+                    <!-- Add ARIA attributes to dynamically added selects -->
                     <div class="component-input">
                         <label>Property Type:</label>
                         <select class="component-field">
@@ -316,6 +328,7 @@ class DataVisualization {
                         </select>
                     </div>
                     <div class="component-input">
+                        <!-- Add ARIA attributes to dynamically added textareas -->
                         <label>Key Features:</label>
                         <textarea placeholder="List the most attractive features" class="component-field"></textarea>
                     </div>
@@ -324,6 +337,7 @@ class DataVisualization {
             tone: {
                 title: 'Tone & Style',
                 content: `
+                    <!-- Add ARIA attributes to dynamically added selects -->
                     <div class="component-input">
                         <label>Desired Tone:</label>
                         <select class="component-field">
@@ -334,6 +348,7 @@ class DataVisualization {
                         </select>
                     </div>
                     <div class="component-input">
+                        <!-- Add ARIA attributes to dynamically added selects -->
                         <label>Target Length:</label>
                         <select class="component-field">
                             <option>Short (50-100 words)</option>
@@ -346,6 +361,7 @@ class DataVisualization {
             compliance: {
                 title: 'Compliance Check',
                 content: `
+                    <!-- Ensure checkbox labels are correctly associated with inputs -->
                     <div class="component-input">
                         <label>Fair Housing Focus:</label>
                         <div class="checkbox-group">
@@ -387,6 +403,7 @@ class DataVisualization {
     }
 
     updatePromptPreview() {
+        // Consider adding ARIA live regions if the preview updates frequently and significantly
         const preview = document.getElementById('promptPreview');
         const components = document.querySelectorAll('.prompt-component');
         
@@ -448,18 +465,6 @@ class DataVisualization {
         const componentsContainer = document.getElementById('promptComponents');
         componentsContainer.innerHTML = '';
         this.updatePromptPreview();
-    }
-
-    showNotification(message, type = 'info') {
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
-        notification.textContent = message;
-        
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
     }
 
     loadDashboardData(dashboardType) {
