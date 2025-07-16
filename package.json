@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/Perfectz/AIREGuide/issues"
   },
-  "homepage": "https://github.com/Perfectz/AIREGuide#readme",
+  "homepage": "https://perfectz.github.io/AIREGuide/",
   "devDependencies": {
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
