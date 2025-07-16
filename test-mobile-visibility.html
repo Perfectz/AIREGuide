@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Menu Visibility Test</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <style>
+        .test-info {
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .test-info h2 {
+            color: #0c4a6e;
+            margin-bottom: 10px;
+        }
+        .test-info ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        .test-info li {
+            margin: 5px 0;
+            color: #0369a1;
+        }
+        .status-indicator {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .status-visible {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .status-hidden {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Mobile Menu Visibility Test</h1>
+        
+        <div class="test-info">
+            <h2>📱 How to Test Mobile Menu</h2>
+            <ul>
+                <li><strong>Desktop Testing:</strong> Resize your browser window to be narrower than 768px</li>
+                <li><strong>Mobile Simulation:</strong> Use browser dev tools (F12) → Device toolbar</li>
+                <li><strong>Real Device:</strong> Test on actual mobile phone or tablet</li>
+                <li><strong>Expected Behavior:</strong> Mobile menu should only appear on screens < 768px wide</li>
+            </ul>
+        </div>
+
+        <!-- Copy the exact mobile header structure from main app -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">Mobile Header (md:hidden)</h2>
+            
+            <header class="md:hidden flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+                <div class="flex items-center space-x-4">
+                    <div class="w-8 h-8 bg-indigo-500 rounded-md flex items-center justify-center text-white font-bold text-sm shadow-md">
+                        AI
+                    </div>
+                    <h1 class="text-xl font-semibold text-gray-800">AI Real Estate Playbook</h1>
+                </div>
+                <button id="menu-btn" class="touch-target p-2 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-colors" aria-label="Toggle mobile menu">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-4 6h10"></path>
+                    </svg>
+                </button>
+            </header>
+            
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg rounded-b-lg text-gray-700 mt-2">
+                <nav id="mobile-nav" class="p-4 space-y-2">
+                    <a href="#test" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium">
+                        <span class="font-medium">Test Navigation Item 1</span>
+                    </a>
+                    <a href="#test" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium">
+                        <span class="font-medium">Test Navigation Item 2</span>
+                    </a>
+                    <a href="#test" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium">
+                        <span class="font-medium">Test Navigation Item 3</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Status Display -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">Current Status</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <h3 class="font-semibold mb-2">Screen Size:</h3>
+                    <p id="screen-size" class="text-gray-600"></p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">Mobile Header:</h3>
+                    <span id="header-status" class="status-indicator"></span>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">Mobile Menu:</h3>
+                    <span id="menu-status" class="status-indicator"></span>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-2">Menu Visibility:</h3>
+                    <span id="menu-visibility" class="status-indicator"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testing Instructions -->
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mt-6">
+            <h2 class="text-xl font-semibold text-yellow-800 mb-4">🔧 Quick Testing Steps</h2>
+            <ol class="list-decimal list-inside space-y-2 text-yellow-700">
+                <li><strong>Open Dev Tools:</strong> Press F12 or right-click → Inspect</li>
+                <li><strong>Enable Device Toolbar:</strong> Click the mobile/tablet icon in dev tools</li>
+                <li><strong>Select Mobile Device:</strong> Choose iPhone SE (375px) or similar</li>
+                <li><strong>Test Menu Button:</strong> Click the hamburger menu button</li>
+                <li><strong>Verify Toggle:</strong> Menu should appear/disappear when clicked</li>
+            </ol>
+        </div>
+
+        <!-- Expected Behavior -->
+        <div class="bg-green-50 border border-green-200 rounded-lg p-6 mt-6">
+            <h2 class="text-xl font-semibold text-green-800 mb-4">✅ Expected Behavior</h2>
+            <ul class="list-disc list-inside space-y-2 text-green-700">
+                <li><strong>Desktop (>768px):</strong> Mobile header and menu should be hidden</li>
+                <li><strong>Mobile (<768px):</strong> Mobile header should be visible</li>
+                <li><strong>Menu Toggle:</strong> Clicking hamburger button should show/hide menu</li>
+                <li><strong>Navigation:</strong> Clicking menu items should navigate and close menu</li>
+                <li><strong>Accessibility:</strong> aria-expanded should update correctly</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Navigation Manager (simplified version)
+        class NavigationManager {
+            constructor() {
+                this.init();
+            }
+
+            init() {
+                this.initializeMobileMenuToggle();
+                this.updateStatus();
+                
+                // Update status on resize
+                window.addEventListener('resize', () => {
+                    this.updateStatus();
+                });
+            }
+
+            toggleMobileMenu() {
+                const mobileMenu = document.getElementById('mobile-menu');
+                const menuBtn = document.getElementById('menu-btn');
+                
+                if (mobileMenu) {
+                    const wasHidden = mobileMenu.classList.contains('hidden');
+                    mobileMenu.classList.toggle('hidden');
+                    
+                    const isHidden = mobileMenu.classList.contains('hidden');
+                    
+                    if (menuBtn) {
+                        const isExpanded = !isHidden;
+                        menuBtn.setAttribute('aria-expanded', isExpanded);
+                    }
+                    
+                    this.updateStatus();
+                }
+            }
+
+            initializeMobileMenuToggle() {
+                const menuBtn = document.getElementById('menu-btn');
+                if (menuBtn && !menuBtn.hasAttribute('data-initialized')) {
+                    const clickHandler = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.toggleMobileMenu();
+                    };
+                    
+                    menuBtn.addEventListener('click', clickHandler);
+                    menuBtn.addEventListener('touchend', clickHandler);
+                    menuBtn.addEventListener('pointerup', clickHandler);
+                    
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                    menuBtn.setAttribute('data-initialized', 'true');
+                }
+            }
+
+            updateStatus() {
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                const header = document.querySelector('header');
+                const menu = document.getElementById('mobile-menu');
+                
+                // Update screen size
+                document.getElementById('screen-size').textContent = `${width}x${height} (${width < 768 ? 'Mobile' : 'Desktop'})`;
+                
+                // Update header status
+                const headerVisible = header && getComputedStyle(header).display !== 'none';
+                const headerStatus = document.getElementById('header-status');
+                headerStatus.textContent = headerVisible ? 'VISIBLE' : 'HIDDEN';
+                headerStatus.className = `status-indicator ${headerVisible ? 'status-visible' : 'status-hidden'}`;
+                
+                // Update menu status
+                const menuExists = !!menu;
+                const menuStatus = document.getElementById('menu-status');
+                menuStatus.textContent = menuExists ? 'EXISTS' : 'MISSING';
+                menuStatus.className = `status-indicator ${menuExists ? 'status-visible' : 'status-hidden'}`;
+                
+                // Update menu visibility
+                const menuVisible = menu && !menu.classList.contains('hidden');
+                const menuVisibility = document.getElementById('menu-visibility');
+                menuVisibility.textContent = menuVisible ? 'VISIBLE' : 'HIDDEN';
+                menuVisibility.className = `status-indicator ${menuVisible ? 'status-visible' : 'status-hidden'}`;
+            }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            new NavigationManager();
+        });
+    </script>
+</body>
+</html> 

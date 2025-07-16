@@ -119,11 +119,18 @@ export class TooltipManager {
 export class NavigationManager {
     constructor() {
         this.currentSection = 'home';
-        this.sections = ['home', 'chatgpt-features', 'formula', 'example-prompt', 'persona', 'copy', 'omnichannel', 'multimedia', 'prompts', 'prompt-library'];
-        this.init();
+        this.sections = ['home', 'chatgpt-features', 'formula', 'example-prompt', 'persona', 'copy', 'omnichannel', 'multimedia', 'multimedia-example', 'prompt-library'];
+        
+        // Ensure DOM is ready before initializing
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.init());
+        } else {
+            this.init();
+        }
     }
 
     init() {
+        
         // Desktop navigation
         const desktopNav = document.getElementById('desktop-nav');
         if (desktopNav) {
@@ -134,6 +141,7 @@ export class NavigationManager {
                     this.navigateToSection(href.substring(1));
                 }
             });
+        } else {
         }
 
         // Mobile navigation
@@ -144,18 +152,99 @@ export class NavigationManager {
                     e.preventDefault();
                     const href = e.target.closest('.nav-item').getAttribute('href');
                     this.navigateToSection(href.substring(1));
-                    this.toggleMobileMenu();
+                    this.closeMobileMenu();
                 }
             });
         }
 
-        // Mobile menu toggle
-        const menuBtn = document.getElementById('menu-btn');
-        if (menuBtn) {
-            menuBtn.addEventListener('click', () => {
+        // Mobile menu toggle - initialize immediately
+        this.initializeMobileMenuToggle();
+        
+        // Try again after delays to catch late-loading elements
+        setTimeout(() => {
+            this.initializeMobileMenuToggle();
+        }, 100);
+        
+        setTimeout(() => {
+            this.initializeMobileMenuToggle();
+        }, 500);
+        
+        // Also initialize on window resize (responsive behavior)
+        window.addEventListener('resize', () => {
+            setTimeout(() => {
+                this.initializeMobileMenuToggle();
+            }, 100);
+        });
+        
+        // Fallback: Use event delegation on document for menu button clicks
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('#menu-btn')) {
+                e.preventDefault();
+                e.stopPropagation();
                 this.toggleMobileMenu();
-            });
-        }
+            }
+        });
+
+        // Close mobile menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeMobileMenu();
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuBtn = document.getElementById('menu-btn');
+            
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    this.closeMobileMenu();
+                }
+            }
+        });
+        
+        // Keyboard navigation for mobile menu
+        document.addEventListener('keydown', (e) => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuBtn = document.getElementById('menu-btn');
+            
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                const menuItems = mobileMenu.querySelectorAll('.mobile-nav-item');
+                const currentIndex = Array.from(menuItems).findIndex(item => item === document.activeElement);
+                
+                switch (e.key) {
+                    case 'Escape':
+                        e.preventDefault();
+                        this.closeMobileMenu();
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        if (currentIndex < menuItems.length - 1) {
+                            menuItems[currentIndex + 1].focus();
+                        } else {
+                            menuItems[0].focus();
+                        }
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        if (currentIndex > 0) {
+                            menuItems[currentIndex - 1].focus();
+                        } else {
+                            menuItems[menuItems.length - 1].focus();
+                        }
+                        break;
+                    case 'Home':
+                        e.preventDefault();
+                        menuItems[0].focus();
+                        break;
+                    case 'End':
+                        e.preventDefault();
+                        menuItems[menuItems.length - 1].focus();
+                        break;
+                }
+            }
+        });
 
         // Handle browser back/forward
         window.addEventListener('popstate', (e) => {
@@ -224,8 +313,112 @@ export class NavigationManager {
 
     toggleMobileMenu() {
         const mobileMenu = document.getElementById('mobile-menu');
+        const menuBtn = document.getElementById('menu-btn');
+        
         if (mobileMenu) {
-            mobileMenu.classList.toggle('hidden');
+            
+            const wasHidden = mobileMenu.classList.contains('hidden-mobile');
+            mobileMenu.classList.toggle('hidden-mobile');
+            const isHidden = mobileMenu.classList.contains('hidden-mobile');
+            
+            // Update aria-expanded attribute for accessibility
+            if (menuBtn) {
+                const isExpanded = !isHidden;
+                menuBtn.setAttribute('aria-expanded', isExpanded);
+                
+                // Announce menu state to screen readers
+                const announcement = isExpanded ? 'Mobile navigation menu opened' : 'Mobile navigation menu closed';
+                this.announceToScreenReader(announcement);
+            }
+            
+            // Update aria-hidden on mobile menu
+            mobileMenu.setAttribute('aria-hidden', isHidden);
+            
+            // Focus management
+            if (!isHidden) {
+                // Focus first menu item when opening
+                const firstMenuItem = mobileMenu.querySelector('.mobile-nav-item');
+                if (firstMenuItem) {
+                    setTimeout(() => firstMenuItem.focus(), 100);
+                }
+            } else {
+                // Return focus to menu button when closing
+                if (menuBtn) {
+                    menuBtn.focus();
+                }
+            }
+            
+            // Force a reflow to ensure changes are applied
+            mobileMenu.offsetHeight;
+            
+            // Dispatch custom event for other components
+            const event = new CustomEvent('mobileMenuToggle', {
+                detail: { isOpen: !isHidden }
+            });
+            document.dispatchEvent(event);
+            
+        } else {
+            console.warn('Mobile menu not found!');
+            console.warn('Available elements with mobile-menu:', document.querySelectorAll('#mobile-menu, [class*="mobile-menu"]'));
+        }
+        
+        if (!menuBtn) {
+            console.warn('Menu button not found during toggle!');
+        }
+    }
+
+    closeMobileMenu() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuBtn = document.getElementById('menu-btn');
+        
+        if (mobileMenu && !mobileMenu.classList.contains('hidden-mobile')) {
+            mobileMenu.classList.add('hidden-mobile');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+            
+            // Update aria-expanded attribute
+            if (menuBtn) {
+                menuBtn.setAttribute('aria-expanded', 'false');
+                menuBtn.focus(); // Return focus to menu button
+            }
+            
+            // Announce to screen readers
+            this.announceToScreenReader('Mobile navigation menu closed');
+        }
+    }
+
+    initializeMobileMenuToggle() {
+        const menuBtn = document.getElementById('menu-btn');
+        if (menuBtn && !menuBtn.hasAttribute('data-initialized')) {
+            
+            // Add multiple event types for better compatibility
+            const clickHandler = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.toggleMobileMenu();
+            };
+            
+            menuBtn.addEventListener('click', clickHandler);
+            menuBtn.addEventListener('touchend', clickHandler);
+            menuBtn.addEventListener('pointerup', clickHandler);
+            
+            // Set initial aria-expanded state
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.setAttribute('data-initialized', 'true');
+            
+        } else if (!menuBtn) {
+            console.warn('Menu button not found! DOM state:', document.readyState);
+            console.warn('Available elements with menu-btn class:', document.querySelectorAll('.menu-btn, [class*="menu-btn"]'));
+        }
+    }
+
+    announceToScreenReader(message) {
+        const statusRegion = document.getElementById('status');
+        if (statusRegion) {
+            statusRegion.textContent = message;
+            // Clear the message after a short delay
+            setTimeout(() => {
+                statusRegion.textContent = '';
+            }, 3000);
         }
     }
 }

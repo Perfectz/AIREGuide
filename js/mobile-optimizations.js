@@ -2,19 +2,40 @@
 
 export class MobileOptimizations {
     constructor() {
-        this.isMobile = window.innerWidth <= 767;
+        this.isMobile = window.innerWidth <= 768;
         this.touchStartY = 0;
         this.touchEndY = 0;
         this.init();
     }
 
     init() {
+        this.initializeMenu();
         if (this.isMobile) {
             this.initializeLazyLoading();
             this.initializeTouchGestures();
             this.initializePerformanceMonitoring();
             this.initializeMobileSpecificFeatures();
             this.initializeSkeletonScreens();
+        }
+    }
+
+    initializeMenu() {
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+        // Initial state: hide the mobile menu visually and from screen readers if it exists
+        if (mobileMenu) {
+            mobileMenu.setAttribute('aria-hidden', 'true');
+        }
+
+        if (menuBtn && mobileMenu && mobileMenuOverlay) {
+            menuBtn.addEventListener('click', () => {
+                const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+                mobileMenu.classList.toggle('is-open'); // Use 'is-open' class
+                mobileMenu.setAttribute('aria-hidden', isExpanded ? 'true' : 'false'); // Toggle aria-hidden
+                mobileMenuOverlay.classList.toggle('hidden'); // Toggle overlay visibility
+            });
         }
     }
 
@@ -45,13 +66,15 @@ export class MobileOptimizations {
 
     // Touch gesture support
     initializeTouchGestures() {
-        // Swipe navigation
         document.addEventListener('touchstart', (e) => {
+            // Check if the touch started on an interactive element
+            if (this.isInteractiveElement(e.target)) {
+                return; // Do not track swipe if it starts on an interactive element
+            }
             this.touchStartY = e.touches[0].clientY;
         }, { passive: true });
 
         document.addEventListener('touchend', (e) => {
-            this.touchEndY = e.changedTouches[0].clientY;
             this.handleSwipeGesture();
         }, { passive: true });
 
@@ -60,6 +83,13 @@ export class MobileOptimizations {
         touchElements.forEach(element => {
             element.classList.add('touch-feedback');
         });
+    }
+
+    isInteractiveElement(element) {
+        const interactiveTags = ['A', 'BUTTON', 'INPUT', 'SELECT', 'TEXTAREA', 'LABEL'];
+        const interactiveClasses = ['.btn', '.nav-item', '.feature-card', '.copy-prompt-btn', '.customize-prompt-btn', '.modal-close'];
+        return interactiveTags.includes(element.tagName) ||
+               interactiveClasses.some(className => element.closest(className));
     }
 
     handleSwipeGesture() {
@@ -130,7 +160,6 @@ export class MobileOptimizations {
     }
 
     logPerformanceMetric(metric, value) {
-        // Mobile performance metric recorded
         // Could send to analytics here
     }
 

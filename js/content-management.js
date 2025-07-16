@@ -1,5 +1,7 @@
 // js/content-management.js - Content management features for Phase 5
 
+import { showNotification, loadData, saveData } from '/js/utils.js';
+
 export class ContentManager {
     constructor() {
         this.ratings = this.loadRatings();
@@ -50,7 +52,10 @@ export class ContentManager {
         const shareOptions = [
             { platform: 'twitter', label: 'Twitter', icon: '🐦', url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}` },
             { platform: 'linkedin', label: 'LinkedIn', icon: '💼', url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}` },
-            { platform: 'facebook', label: 'Facebook', icon: '📘', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}` },
+            // Using a simpler share URL for Facebook that works better on mobile
+            { platform: 'facebook', label: 'Facebook', icon: '📘', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(title)}` },
+            // Add WhatsApp for mobile sharing
+            { platform: 'whatsapp', label: 'WhatsApp', icon: '📱', url: `whatsapp://send?text=${encodeURIComponent(title + ' ' + url)}` },
             { platform: 'email', label: 'Email', icon: '📧', url: `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(text + '\n\n' + url)}` },
             { platform: 'copy', label: 'Copy Link', icon: '📋', action: 'copy' }
         ];
@@ -70,7 +75,7 @@ export class ContentManager {
                 <div class="share-options">
                     ${options.map(option => `
                         <button class="share-option" data-platform="${option.platform}">
-                            <span class="share-icon">${option.icon}</span>
+                            <span class="share-icon" aria-hidden="true">${option.icon}</span>
                             <span class="share-label">${option.label}</span>
                         </button>
                     `).join('')}
@@ -90,7 +95,7 @@ export class ContentManager {
                 
                 if (option.action === 'copy') {
                     this.copyToClipboard(window.location.href);
-                    this.showSuccessMessage('Link copied to clipboard!');
+                    showNotification('Link copied to clipboard!', 'success');
                 } else {
                     window.open(option.url, '_blank', 'width=600,height=400');
                 }
@@ -98,12 +103,37 @@ export class ContentManager {
                 dialog.remove();
             });
         });
+        
+        // Add responsiveness and mobile testing considerations
+        dialog.classList.add('share-dialog-mobile-ready'); // Add class for specific mobile styles
+        
+        // Close dialog on outside click (useful for mobile overlay)
+        dialog.addEventListener('click', (event) => {
+            if (event.target === dialog) {
+                dialog.remove();
+            }
+        });
 
         document.body.appendChild(dialog);
     }
 
+    // Handle filter panel visibility (for mobile toggle)
+    toggleFilterPanel() {
+        const panel = document.querySelector('.filter-panel');
+        const filterBtn = document.getElementById('toggle-filter-panel');
+        if (panel && filterBtn) {
+            const isHidden = panel.classList.toggle('hidden');
+            filterBtn.setAttribute('aria-expanded', !isHidden);
+            // Focus the panel when opened for accessibility
+            if (!isHidden) {
+                panel.focus();
+            }
+        }
+    }
+
     // Content Filtering
     initContentFiltering() {
+        this.createFilterToggleButton();
         this.createFilterPanel();
         this.setupFilterLogic();
     }
@@ -111,10 +141,20 @@ export class ContentManager {
     createFilterPanel() {
         const filterPanel = document.createElement('div');
         filterPanel.className = 'filter-panel';
+        // Add role and initial state for accessibility
+        filterPanel.setAttribute('role', 'dialog');
+        filterPanel.setAttribute('aria-modal', 'true');
+        filterPanel.setAttribute('aria-labelledby', 'filter-panel-title');
+        filterPanel.setAttribute('tabindex', '-1'); // Make panel focusable
+        
         filterPanel.innerHTML = `
             <div class="filter-header">
-                <h3>Filter Content</h3>
-                <button class="filter-close" aria-label="Close filter panel">×</button>
+                <h3 id="filter-panel-title">Filter Content</h3>
+                <button class="filter-close" aria-label="Close filter panel">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <!-- Add a subtle close button for better mobile UX -->
+                <button class="filter-close-overlay" aria-label="Close filter panel"></button>
             </div>
             <div class="filter-options">
                 <div class="filter-group">
@@ -153,12 +193,37 @@ export class ContentManager {
         document.body.appendChild(filterPanel);
     }
 
+    createFilterToggleButton() {
+        // Assuming there's a place in the HTML to put this, like a header
+        const header = document.querySelector('header') || document.body; // Fallback to body
+        const toggleBtn = document.createElement('button');
+        toggleBtn.id = 'toggle-filter-panel';
+        toggleBtn.className = 'btn btn-secondary toggle-filter-panel';
+        toggleBtn.innerHTML = '<span aria-hidden="true">📊</span> Filter';
+        toggleBtn.setAttribute('aria-controls', 'filter-panel');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        toggleBtn.setAttribute('aria-label', 'Toggle filter panel');
+
+        toggleBtn.addEventListener('click', () => {
+            this.toggleFilterPanel();
+        });
+
+        header.appendChild(toggleBtn); // Adjust where this button should be placed
+    }
+
     setupFilterLogic() {
         const filterCheckboxes = document.querySelectorAll('.filter-checkboxes input');
         const clearFiltersBtn = document.getElementById('clear-filters');
         const applyFiltersBtn = document.getElementById('apply-filters');
+        const filterPanel = document.querySelector('.filter-panel');
+        const closeButtons = filterPanel ? filterPanel.querySelectorAll('.filter-close, .filter-close-overlay') : [];
 
         filterCheckboxes.forEach(checkbox => {
+            // Add ARIA attributes to checkboxes (already standard HTML input accessibility)
+            // Ensure they are correctly associated with labels (standard practice with <label> tag)
+             const label = checkbox.closest('label');
+             if (label) checkbox.setAttribute('aria-labelledby', label.id || label.textContent.trim().replace(/\s+/g, '-').toLowerCase());
+
             checkbox.addEventListener('change', () => {
                 this.applyFilters();
             });
@@ -169,12 +234,24 @@ export class ContentManager {
                 checkbox.checked = true;
             });
             this.applyFilters();
+            // Optionally close panel after clearing on mobile
+             if (window.innerWidth <= 768) { // Example breakpoint
+                 this.toggleFilterPanel();
+             }
         });
 
         applyFiltersBtn.addEventListener('click', () => {
             this.applyFilters();
+            // Optionally close panel after applying on mobile
+            if (window.innerWidth <= 768) { // Example breakpoint
+                this.toggleFilterPanel();
+            }
         });
-    }
+
+         closeButtons.forEach(btn => btn.addEventListener('click', () => {
+             this.toggleFilterPanel();
+         }));
+     }
 
     applyFilters() {
         const selectedTypes = Array.from(document.querySelectorAll('input[value="formula"], input[value="persona"], input[value="copy"], input[value="omnichannel"], input[value="multimedia"]'))
@@ -231,13 +308,15 @@ export class ContentManager {
         document.querySelectorAll('.card').forEach(card => {
             const ratingContainer = document.createElement('div');
             ratingContainer.className = 'rating-container';
+            ratingContainer.setAttribute('role', 'group'); // Group stars semantically
+            ratingContainer.setAttribute('aria-label', 'Content rating'); // Label for the group
             ratingContainer.innerHTML = `
                 <div class="rating-stars">
-                    <span class="star" data-rating="1">☆</span>
-                    <span class="star" data-rating="2">☆</span>
-                    <span class="star" data-rating="3">☆</span>
-                    <span class="star" data-rating="4">☆</span>
-                    <span class="star" data-rating="5">☆</span>
+                    <span class="star" data-rating="1" tabindex="0" role="radio" aria-label="1 star" aria-checked="false">☆</span>
+                    <span class="star" data-rating="2" tabindex="0" role="radio" aria-label="2 stars" aria-checked="false">☆</span>
+                    <span class="star" data-rating="3" tabindex="0" role="radio" aria-label="3 stars" aria-checked="false">☆</span>
+                    <span class="star" data-rating="4" tabindex="0" role="radio" aria-label="4 stars" aria-checked="false">☆</span>
+                    <span class="star" data-rating="5" tabindex="0" role="radio" aria-label="5 stars" aria-checked="false">☆</span>
                 </div>
                 <span class="rating-count">0 ratings</span>
             `;
@@ -255,6 +334,14 @@ export class ContentManager {
 
                 star.addEventListener('mouseleave', () => {
                     this.resetStarHighlight(ratingContainer);
+                });
+                
+                // Add keyboard interaction
+                star.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault(); // Prevent default space behavior (scrolling)
+                        this.rateContent(card, parseInt(star.dataset.rating), ratingContainer);
+                    }
                 });
             });
 
@@ -293,13 +380,17 @@ export class ContentManager {
         // Update display
         this.updateRatingDisplay(container, this.ratings[cardId]);
         this.saveRatings();
-        
-        this.showSuccessMessage(`Rated ${rating} stars!`);
+
+        showNotification(`Rated ${rating} stars!`, 'success');
     }
 
     updateRatingDisplay(container, ratingData) {
         const stars = container.querySelectorAll('.star');
         const countElement = container.querySelector('.rating-count');
+
+        // Update ARIA attributes for selected state
+        const userRating = ratingData.userRating || 0;
+        container.setAttribute('aria-valuenow', userRating); // Convey the user's rating to the group
         
         const averageRating = ratingData.count > 0 ? ratingData.total / ratingData.count : 0;
         
@@ -307,58 +398,24 @@ export class ContentManager {
             const starRating = index + 1;
             if (starRating <= averageRating) {
                 star.textContent = '★';
-                star.style.color = '#fbbf24';
+                star.classList.add('filled'); // Use class for styling
+                // If the user has rated, highlight their rating
+                if (userRating >= starRating) {
+                    star.setAttribute('aria-checked', 'true');
+                } else {
+                    star.setAttribute('aria-checked', 'false');
+                }
             } else {
                 star.textContent = '☆';
-                star.style.color = '#d1d5db';
+                star.classList.remove('filled'); // Use class for styling
+                star.setAttribute('aria-checked', 'false');
             }
         });
 
         countElement.textContent = `${ratingData.count} rating${ratingData.count !== 1 ? 's' : ''}`;
     }
 
-
-
     // Utility Methods
-    showSuccessMessage(message) {
-        const notification = document.createElement('div');
-        notification.className = 'notification success';
-        notification.textContent = message;
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
-    }
-
-    showErrorMessage(message) {
-        const notification = document.createElement('div');
-        notification.className = 'notification error';
-        notification.textContent = message;
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
-    }
-
-    loadRatings() {
-        try {
-            const saved = localStorage.getItem('contentRatings');
-            return saved ? JSON.parse(saved) : {};
-        } catch (error) {
-            console.error('Error loading ratings:', error);
-            return {};
-        }
-    }
-
-    saveRatings() {
-        try {
-            localStorage.setItem('contentRatings', JSON.stringify(this.ratings));
-        } catch (error) {
-            console.error('Error saving ratings:', error);
-        }
-    }
 
     loadFavorites() {
         try {
@@ -445,13 +502,13 @@ export class ContentManager {
         const stars = container.querySelectorAll('.star');
         stars.forEach((star, index) => {
             if (index < rating) {
-                star.textContent = '★';
-                star.style.color = '#fbbf24';
+                 star.textContent = '★';
+                 star.classList.add('filled'); // Use class for styling
             }
         });
     }
 
-    resetStarHighlight(container) {
+    resetStarHighlight(container) { // This needs to respect the user's actual rating
         const stars = container.querySelectorAll('.star');
         stars.forEach(star => {
             star.textContent = '☆';
@@ -459,6 +516,14 @@ export class ContentManager {
         });
     }
 
+    // Refactored resetStarHighlight to show actual rating on mouse leave
+     resetStarHighlight(container) {
+         const card = container.closest('.card');
+         if (card) {
+             const cardId = this.generateCardId(card);
+             this.updateRatingDisplay(container, this.ratings[cardId] || { total: 0, count: 0, userRating: 0 });
+         }
+     }
     copyToClipboard(text) {
         navigator.clipboard.writeText(text).catch(err => {
             console.error('Failed to copy text: ', err);
@@ -520,12 +585,12 @@ export class ContentManager {
 
     recordContentView(sectionId) {
         const analytics = this.loadAnalytics();
-        if (!analytics.views[sectionId]) {
+        if (!analytics.views || !analytics.views[sectionId]) {
             analytics.views[sectionId] = 0;
         }
         analytics.views[sectionId]++;
         this.saveAnalytics(analytics);
-    }
+     }
 
     recordTimeSpent(timeSpent) {
         const analytics = this.loadAnalytics();

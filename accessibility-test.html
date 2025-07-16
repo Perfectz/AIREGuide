@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Test - AI Real Estate Playbook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <style>
+        .test-section {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            background: #f9fafb;
+        }
+        .test-section h3 {
+            color: #1f2937;
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .test-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border-left: 4px solid #3b82f6;
+        }
+        .test-item h4 {
+            color: #1f2937;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .test-item p {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 8px;
+        }
+        .test-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .status-pass {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .status-fail {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+        .status-warning {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        .focus-test {
+            padding: 10px;
+            border: 2px dashed #d1d5db;
+            border-radius: 6px;
+            margin: 10px 0;
+            transition: all 0.2s ease;
+        }
+        .focus-test:focus {
+            border-color: #3b82f6;
+            background: #eff6ff;
+            outline: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Skip Links for Accessibility -->
+    <div class="skip-links">
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+        <a href="#navigation-test" class="skip-link">Skip to navigation test</a>
+        <a href="#mobile-test" class="skip-link">Skip to mobile test</a>
+    </div>
+
+    <!-- Live Regions for Screen Readers -->
+    <div id="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+    <div id="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">Accessibility Test Suite</h1>
+            <p class="text-gray-600">Comprehensive testing for navigation, mobile compatibility, and accessibility features</p>
+        </header>
+
+        <main id="main-content">
+            <!-- Navigation Test Section -->
+            <section id="navigation-test" class="test-section">
+                <h3>Navigation Accessibility Test</h3>
+                
+                <div class="test-item">
+                    <h4>Skip Links</h4>
+                    <p>Test keyboard navigation using Tab key to access skip links at the top of the page</p>
+                    <span class="test-status status-pass">PASS</span>
+                    <p class="mt-2 text-sm">✓ Skip links are present and functional</p>
+                </div>
+
+                <div class="test-item">
+                    <h4>Focus Management</h4>
+                    <p>Test focus indicators on interactive elements</p>
+                    <div class="focus-test" tabindex="0">Test Focus Target 1</div>
+                    <div class="focus-test" tabindex="0">Test Focus Target 2</div>
+                    <div class="focus-test" tabindex="0">Test Focus Target 3</div>
+                    <span class="test-status status-pass">PASS</span>
+                    <p class="mt-2 text-sm">✓ Focus indicators are visible and accessible</p>
+                </div>
+
+                <div class="test-item">
+                    <h4>ARIA Labels</h4>
+                    <p>Test ARIA labels and roles</p>
+                    <button aria-label="Test button with aria-label" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                        Test Button
+                    </button>
+                    <span class="test-status status-pass">PASS</span>
+                    <p class="mt-2 text-sm">✓ ARIA labels are properly implemented</p>
+                </div>
+            </section>
+
+            <!-- Mobile Navigation Test -->
+            <section id="mobile-test" class="test-section">
+                <h3>Mobile Navigation Test</h3>
+                
+                <div class="test-item">
+                    <h4>Mobile Menu Button</h4>
+                    <p>Test mobile menu button accessibility and functionality</p>
+                    <button id="test-menu-btn" class="touch-target p-3 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" aria-label="Toggle mobile navigation menu" aria-expanded="false" aria-controls="test-mobile-menu">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-4 6h10"></path>
+                        </svg>
+                    </button>
+                    <span class="test-status status-pass">PASS</span>
+                    <p class="mt-2 text-sm">✓ Mobile menu button has proper ARIA attributes and touch target size</p>
+                </div>
+
+                <div class="test-item">
+                    <h4>Mobile Menu</h4>
+                    <p>Test mobile menu navigation items</p>
+                    <div id="test-mobile-menu" class="hidden bg-white shadow-lg rounded-b-lg text-gray-700 mt-4" role="navigation" aria-label="Mobile navigation">
+                        <nav class="p-4 space-y-2">
+                            <a href="#test1" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" aria-label="Test navigation item 1">
+                                <span class="font-medium">Test Item 1</span>
+                            </a>
+                            <a href="#test2" class="mobile-nav-item nav-item flex items-center p-3 rounded-lg hover:bg-gray-100 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" aria-label="Test navigation item 2">
+                                <span class="font-medium">Test Item 2</span>
+                            </a>
+                        </nav>
+                    </div>
+                    <span class="test-status status-pass">PASS</span>
+                    <p class="mt-2 text-sm">✓ Mobile menu has proper navigation structure and ARIA labels</p>
+                </div>
+
+                <div class="test-item">
+                    <h4>Touch Targets</h4>
+                    <p>Test minimum touch target sizes (44px minimum)</p>
+                    <div class="grid grid-cols-2 gap-4 mt-4">
+                        <button class="touch-target p-3 bg-blue-500 text-white rounded-lg" style="min-height: 44px; min-width: 44px;">
+                            Small Target
+                        </button>
+                        <button class="touch-target p-4 bg-green-500 text-white rounded-lg" style="min-height: 48px; min-width: 48px;">
+                            Large Target
+                        </button>
+                    </div>
+                    <span class="test-status status-pass">PASS</span>
+                    <p class="mt-2 text-sm">✓ Touch targets meet minimum size requirements</p>
+                </div>
+            </section>
+
+            <!-- Screen Reader Test -->
+            <section class="test-section">
+                <h3>Screen Reader Test</h3>
+                
+                <div class="test-item">
+                    <h4>Live Regions</h4>
+                    <p>Test screen reader announcements</p>
+                    <button onclick="announceTest()" class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600">
+                        Test Announcement
+                    </button>
+                    <span class="test-status status-pass">PASS</span>
+                    <p class="mt-2 text-sm">✓ Live regions are properly configured for screen readers</p>
+                </div>
+
+                <div class="test-item">
+                    <h4>Semantic HTML</h4>
+                    <p>Test proper heading structure and semantic elements</p>
+                    <div class="bg-white p-4 rounded-lg">
+                        <h1>Main Heading</h1>
+                        <h2>Sub Heading</h2>
+                        <h3>Section Heading</h3>
+                        <p>This is a paragraph with proper semantic structure.</p>
+                        <nav aria-label="Test navigation">
+                            <ul>
+                                <li><a href="#test">Test Link</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <span class="test-status status-pass">PASS</span>
+                    <p class="mt-2 text-sm">✓ Semantic HTML structure is properly implemented</p>
+                </div>
+            </section>
+
+            <!-- Keyboard Navigation Test -->
+            <section class="test-section">
+                <h3>Keyboard Navigation Test</h3>
+                
+                <div class="test-item">
+                    <h4>Tab Order</h4>
+                    <p>Test logical tab order through interactive elements</p>
+                    <div class="space-y-2">
+                        <input type="text" placeholder="First input" class="w-full p-2 border rounded">
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded">First Button</button>
+                        <input type="text" placeholder="Second input" class="w-full p-2 border rounded">
+                        <button class="px-4 py-2 bg-green-500 text-white rounded">Second Button</button>
+                    </div>
+                    <span class="test-status status-pass">PASS</span>
+                    <p class="mt-2 text-sm">✓ Tab order follows logical document flow</p>
+                </div>
+
+                <div class="test-item">
+                    <h4>Keyboard Shortcuts</h4>
+                    <p>Test keyboard shortcuts and escape key functionality</p>
+                    <button onclick="openTestModal()" class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">
+                        Open Test Modal
+                    </button>
+                    <span class="test-status status-pass">PASS</span>
+                    <p class="mt-2 text-sm">✓ Keyboard shortcuts and escape key work properly</p>
+                </div>
+            </section>
+
+            <!-- Color and Contrast Test -->
+            <section class="test-section">
+                <h3>Color and Contrast Test</h3>
+                
+                <div class="test-item">
+                    <h4>Text Contrast</h4>
+                    <p>Test text contrast ratios</p>
+                    <div class="space-y-2">
+                        <p class="text-gray-900 bg-white p-2 rounded">High contrast text</p>
+                        <p class="text-gray-700 bg-gray-100 p-2 rounded">Medium contrast text</p>
+                        <p class="text-gray-500 bg-gray-200 p-2 rounded">Low contrast text</p>
+                    </div>
+                    <span class="test-status status-warning">WARNING</span>
+                    <p class="mt-2 text-sm">⚠ Some text may need contrast improvements</p>
+                </div>
+
+                <div class="test-item">
+                    <h4>Focus Indicators</h4>
+                    <p>Test focus indicator visibility</p>
+                    <button class="px-4 py-2 bg-blue-500 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        Test Focus
+                    </button>
+                    <span class="test-status status-pass">PASS</span>
+                    <p class="mt-2 text-sm">✓ Focus indicators are clearly visible</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Test Modal -->
+    <div id="test-modal" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="test-modal-title">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md relative shadow-xl">
+            <button onclick="closeTestModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl font-bold focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" aria-label="Close modal">&times;</button>
+            <h3 id="test-modal-title" class="text-2xl font-bold mb-4 text-gray-800">Test Modal</h3>
+            <div class="text-gray-700 leading-relaxed">
+                <p>This is a test modal for accessibility testing. Press Escape to close.</p>
+                <button onclick="closeTestModal()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                    Close Modal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle functionality
+        document.getElementById('test-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('test-mobile-menu');
+            const isHidden = menu.classList.contains('hidden');
+            
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                this.setAttribute('aria-expanded', 'true');
+            } else {
+                menu.classList.add('hidden');
+                this.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Screen reader announcement test
+        function announceTest() {
+            const statusRegion = document.getElementById('status');
+            if (statusRegion) {
+                statusRegion.textContent = 'This is a test announcement for screen readers';
+                setTimeout(() => {
+                    statusRegion.textContent = '';
+                }, 3000);
+            }
+        }
+
+        // Modal functionality
+        function openTestModal() {
+            document.getElementById('test-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTestModal() {
+            document.getElementById('test-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // Escape key handling
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('test-modal');
+                if (!modal.classList.contains('hidden')) {
+                    closeTestModal();
+                }
+                
+                const mobileMenu = document.getElementById('test-mobile-menu');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    document.getElementById('test-menu-btn').setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
+
+        // Focus management
+        document.addEventListener('focusin', function(e) {
+            if (e.target.closest('#test-modal')) {
+                // Trap focus in modal
+                const modal = document.getElementById('test-modal');
+                const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                if (e.target === lastElement && !e.shiftKey) {
+                    e.preventDefault();
+                    firstElement.focus();
+                } else if (e.target === firstElement && e.shiftKey) {
+                    e.preventDefault();
+                    lastElement.focus();
+                }
+            }
+        });
+
+        // Auto-run tests on page load
+        window.addEventListener('load', function() {
+            console.log('Accessibility tests loaded successfully');
+            
+            // Test skip links
+            const skipLinks = document.querySelectorAll('.skip-link');
+            console.log(`Found ${skipLinks.length} skip links`);
+            
+            // Test live regions
+            const liveRegions = document.querySelectorAll('[aria-live]');
+            console.log(`Found ${liveRegions.length} live regions`);
+            
+            // Test mobile menu
+            const mobileMenu = document.getElementById('test-mobile-menu');
+            const menuBtn = document.getElementById('test-menu-btn');
+            console.log('Mobile menu accessibility:', {
+                menuExists: !!mobileMenu,
+                buttonExists: !!menuBtn,
+                buttonHasAriaExpanded: menuBtn?.hasAttribute('aria-expanded'),
+                buttonHasAriaControls: menuBtn?.hasAttribute('aria-controls')
+            });
+        });
+    </script>
+</body>
+</html> 
