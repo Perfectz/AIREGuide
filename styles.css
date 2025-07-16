@@ -409,6 +409,17 @@ a[target="_blank"]:hover::after {
   }
 }
 
+/* Mobile Stacking for Key Sections */
+@media (max-width: 768px) {
+  .hero-modern {
+    flex-direction: column;
+  }
+  .modern-grid, .ai-ui-grid-row {
+    flex-direction: column;
+    gap: var(--spacing-6); /* Add vertical space */
+  }
+}
+
 /* Flexbox Utilities */
 .items-center {
   align-items: center;
