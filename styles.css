@@ -144,7 +144,7 @@
   --radius-full: 9999px;
 
   /* Standardized Breakpoints */
-  --mobile-max: 767px;
+  --mobile-max: 768px;
   --tablet-min: 768px;
   --desktop-min: 1024px;
   --large-desktop-min: 1280px;
@@ -382,6 +382,30 @@ a[target="_blank"]:hover::after {
 
   .md\:text-5xl {
     font-size: var(--font-size-5xl);
+  }
+}
+
+/* Typography scaling adjustments for mobile */
+@media (max-width: 768px) {
+  h1 {
+    font-size: var(--heading-font-size-h1-mobile, 2rem); /* Smaller h1 on mobile */
+    line-height: var(--line-height-tight);
+  }
+  h2 {
+    font-size: var(--heading-font-size-h2-mobile, 1.75rem); /* Smaller h2 on mobile */
+    line-height: var(--line-height-tight);
+  }
+  h3 {
+    font-size: var(--heading-font-size-h3-mobile, 1.375rem); /* Smaller h3 on mobile */
+    line-height: var(--line-height-tight);
+  }
+  h4 {
+    font-size: var(--heading-font-size-h4-mobile, 1.25rem); /* Smaller h4 on mobile */
+    line-height: var(--line-height-tight);
+  }
+  h5 {
+    font-size: var(--heading-font-size-h5-mobile, 1.125rem); /* Smaller h5 on mobile */
+    line-height: var(--line-height-tight);
   }
 }
 
@@ -699,6 +723,12 @@ main {
   }
 }
 
+@media (min-width: 769px) {
+  #mobile-menu {
+    display: none !important;
+  }
+}
+
 #mobile-menu .nav-item {
   padding: var(--spacing-3) var(--spacing-4); /* Consistent padding */
 }
@@ -706,7 +736,7 @@ main {
 /* Remove conflicting mobile menu animation rule */
 /* #mobile-menu.hidden-mobile {
   transform: translateY(-10px);
-  opacity: 0;
+ opacity: 0;
   pointer-events: none;
 } */
 
@@ -798,7 +828,7 @@ main {
 }
 
 /* Mobile-Specific Layouts */
-.mobile-stack {
+.mobile-stack, .content-section > div {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-4);
@@ -811,10 +841,21 @@ main {
 }
 
 @media (min-width: 640px) {
+ /* Adjust grid for smaller tablets */
   .mobile-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+@media (max-width: 768px) {
+  body {
+    font-size: var(--font-size-base-mobile, 1rem); /* Base font size for mobile */
+    line-height: var(--line-height-relaxed-mobile, 1.6); /* Slightly increased line height for mobile readability */
+  }
+
+  .desktop-only {
+ display: none !important;
+  }
 
 @media (min-width: 1024px) {
   .mobile-grid {
@@ -824,15 +865,22 @@ main {
 
 /* Mobile Typography Optimization */
 .mobile-text {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm); /* Slightly smaller base text on mobile */
   line-height: var(--line-height-relaxed);
   letter-spacing: 0.01em;
 }
 
+.content-section p {
+  font-size: var(--font-size-base); /* Ensure main content paragraphs scale */
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--spacing-4); /* Reduce spacing on mobile */
+}
+
+
 .mobile-heading {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
+  font-size: var(--font-size-xl); /* Adjust mobile heading size */
+ font-weight: var(--font-weight-bold);
+ line-height: var(--line-height-tight);
   margin-bottom: var(--spacing-4);
 }
 
@@ -930,6 +978,14 @@ main {
   position: relative;
   overflow: hidden;
 
+
+/* Specific mobile layout adjustments for modern grid */
+ @media (max-width: 768px) {
+  .modern-grid-2 {
+ grid-template-columns: 1fr; /* Stack columns on mobile */
+ gap: var(--spacing-4); /* Adjust gap for mobile */
+  }
+ }
 
 .modern-grid-2 {
  display: grid;

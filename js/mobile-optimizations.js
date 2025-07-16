@@ -2,7 +2,7 @@
 
 export class MobileOptimizations {
     constructor() {
-        this.isMobile = window.innerWidth <= 767;
+        this.isMobile = window.innerWidth <= 768;
         this.touchStartY = 0;
         this.touchEndY = 0;
         this.init();
@@ -33,6 +33,7 @@ export class MobileOptimizations {
             menuBtn.addEventListener('click', () => {
                 const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
                 mobileMenu.classList.toggle('is-open'); // Use 'is-open' class
+                mobileMenu.setAttribute('aria-hidden', isExpanded ? 'true' : 'false'); // Toggle aria-hidden
                 mobileMenuOverlay.classList.toggle('hidden'); // Toggle overlay visibility
             });
         }
