@@ -24,10 +24,14 @@ export class MobileOptimizations {
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
 
+        // Initial state: hide the mobile menu visually and from screen readers if it exists
+        if (mobileMenu) {
+            mobileMenu.setAttribute('aria-hidden', 'true');
+        }
+
         if (menuBtn && mobileMenu && mobileMenuOverlay) {
             menuBtn.addEventListener('click', () => {
                 const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-                menuBtn.setAttribute('aria-expanded', !isExpanded);
                 mobileMenu.classList.toggle('is-open'); // Use 'is-open' class
                 mobileMenuOverlay.classList.toggle('hidden'); // Toggle overlay visibility
             });

@@ -1,0 +1,13 @@
+{
+  "esversion": 11,
+  "strict": true,
+  "browser": true,
+  "node": true,
+  "esnext": true,
+  "globals": {
+    "__": true,
+    "jQuery": true,
+    "$": true,
+    "default_api": true
+  }
+}

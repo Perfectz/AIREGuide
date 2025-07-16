@@ -138,6 +138,9 @@ export class ComponentManager {
             case 'multimedia':
                 await this.initializeMultimedia();
                 break;
+            case 'multimedia-example':
+                await this.initializeMultimediaExample();
+                break;
             case 'prompt-library':
                 await this.initializePromptLibrary();
                 break;
@@ -187,6 +190,10 @@ export class ComponentManager {
 
     async initializeExamplePrompt() {
         // Example prompt component doesn't need special initialization
+    }
+
+    async initializeMultimediaExample() {
+        // Multimedia Example component doesn't need special initialization
     }
 
 
