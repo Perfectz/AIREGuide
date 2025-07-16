@@ -1,6 +1,7 @@
 // js/prompt-library-manager.js - Prompt Library section functionality
 
 import { ClipboardManager, AccordionManager } from './ui-utils.js';
+import { PromptCustomizer } from './prompt-customizer.js';
 
 export class PromptLibraryManager {
     constructor() {
@@ -323,7 +324,6 @@ export class PromptLibraryManager {
         const libraryContainer = document.getElementById('prompt-library-accordion');
         if (!libraryContainer) return;
         
-        // Initializing prompt library
 
         libraryContainer.innerHTML = `
             <div class="mb-6 flex justify-between items-center">
@@ -474,7 +474,7 @@ export class PromptLibraryManager {
                 const categoryIndex = parseInt(button.getAttribute('data-category'));
                 const promptIndex = parseInt(button.getAttribute('data-prompt'));
                 const prompt = this.prompts[categoryIndex].prompts[promptIndex];
-                this.customizePrompt(prompt);
+                new PromptCustomizer().customizePrompt(prompt);
             });
         });
     }
@@ -493,129 +493,6 @@ export class PromptLibraryManager {
                 alert('Failed to copy to clipboard');
             }
         });
-    }
-
-    customizePrompt(prompt) {
-        // Create a modal for customization
-        const modal = document.createElement('div');
-        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-        modal.innerHTML = `
-            <div class="bg-white p-6 rounded-lg max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-semibold">Customize: ${prompt.title}</h3>
-                    <button class="close-modal text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
-                </div>
-                
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Original Prompt:</label>
-                        <textarea class="w-full p-3 border border-gray-300 rounded-lg h-32" readonly>${prompt.prompt}</textarea>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Property Address</label>
-                            <input type="text" id="custom-address" placeholder="123 Main St, City, State" class="w-full p-2 border border-gray-300 rounded">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Target Audience</label>
-                            <input type="text" id="custom-audience" placeholder="First-time buyers" class="w-full p-2 border border-gray-300 rounded">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Key Features</label>
-                        <input type="text" id="custom-features" placeholder="Updated kitchen, large backyard" class="w-full p-2 border border-gray-300 rounded">
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Brand Voice</label>
-                        <select id="custom-voice" class="w-full p-2 border border-gray-300 rounded">
-                            <option value="">Select voice</option>
-                            <option value="professional">Professional</option>
-                            <option value="friendly">Friendly</option>
-                            <option value="luxury">Luxury</option>
-                            <option value="casual">Casual</option>
-                        </select>
-                    </div>
-                    
-                    <button id="generate-custom" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors">
-                        Generate Customized Prompt
-                    </button>
-                    
-                    <div id="custom-result" class="hidden">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Customized Prompt:</label>
-                        <textarea id="customized-text" class="w-full p-3 border border-gray-300 rounded-lg h-32"></textarea>
-                        <button id="copy-custom" class="mt-2 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition-colors">
-                            Copy Customized Prompt
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        document.body.appendChild(modal);
-
-        // Add event listeners
-        modal.querySelector('.close-modal').addEventListener('click', () => {
-            document.body.removeChild(modal);
-        });
-
-        modal.querySelector('#generate-custom').addEventListener('click', () => {
-            this.generateCustomizedPrompt(prompt, modal);
-        });
-
-        modal.querySelector('#copy-custom').addEventListener('click', () => {
-            const customizedText = modal.querySelector('#customized-text').value;
-            ClipboardManager.copyToClipboard(customizedText).then(success => {
-                if (success) {
-                    ClipboardManager.showCopyFeedback(modal.querySelector('#copy-custom'));
-                }
-            });
-        });
-
-        // Close modal on background click
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                document.body.removeChild(modal);
-            }
-        });
-    }
-
-    generateCustomizedPrompt(originalPrompt, modal) {
-        const address = modal.querySelector('#custom-address').value;
-        const audience = modal.querySelector('#custom-audience').value;
-        const features = modal.querySelector('#custom-features').value;
-        const voice = modal.querySelector('#custom-voice').value;
-
-        let customizedPrompt = originalPrompt.prompt;
-
-        // Replace placeholders
-        if (address) {
-            customizedPrompt = customizedPrompt.replace(/\[PROPERTY ADDRESS\]/g, address);
-            customizedPrompt = customizedPrompt.replace(/\[ADDRESS\]/g, address);
-        }
-        
-        if (audience) {
-            customizedPrompt = customizedPrompt.replace(/\[TARGET AUDIENCE\]/g, audience);
-            customizedPrompt = customizedPrompt.replace(/\[AUDIENCE\]/g, audience);
-        }
-        
-        if (features) {
-            customizedPrompt = customizedPrompt.replace(/\[KEY FEATURES\]/g, features);
-        }
-        
-        if (voice) {
-            customizedPrompt = customizedPrompt.replace(/\[BRAND VOICE\]/g, voice);
-        }
-
-        const resultContainer = modal.querySelector('#custom-result');
-        const customizedText = modal.querySelector('#customized-text');
-        
-        if (resultContainer && customizedText) {
-            customizedText.value = customizedPrompt;
-            resultContainer.classList.remove('hidden');
-        }
     }
 
     initializeSearchAndFilter() {

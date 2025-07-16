@@ -2,6 +2,7 @@
 
 import { COMPLIANCE_BAD_WORDS, COMPLIANCE_DOS_DONTS } from './data.js';
 import { ModalManager, ClipboardManager } from './ui-utils.js';
+import { PromptCustomizer } from './prompt-customizer.js';
 
 export class CopyManager {
     constructor() {
@@ -14,6 +15,36 @@ export class CopyManager {
         this.initializeCopyGenerator();
         this.initializeDosAndDonts();
         this.initializeInteractiveElements();
+        this.initializePromptCustomizers();
+    }
+
+    initializePromptCustomizers() {
+        const promptElements = document.querySelectorAll('.bg-gradient-to-r.from-blue-50.to-indigo-50 p.text-gray-700.italic');
+        
+        promptElements.forEach((promptP, index) => {
+            // Derive title
+            let title = 'Custom AI Prompt ' + (index + 1);
+            const container = promptP.closest('.modern-card, .bg-white.border-2');
+            if (container) {
+                const h3 = container.querySelector('h3.modern-card-title, h4.font-bold');
+                if (h3) {
+                    title = h3.textContent.trim() + ' Prompt';
+                }
+            }
+            
+            const button = document.createElement('button');
+            button.className = 'modern-btn modern-btn-secondary mt-2';
+            button.textContent = 'Customize This Prompt';
+            button.addEventListener('click', () => {
+                const prompt = {
+                    title: title,
+                    prompt: promptP.textContent.trim()
+                };
+                new PromptCustomizer().customizePrompt(prompt);
+            });
+            
+            promptP.after(button);
+        });
     }
 
     initializeComplianceChecker() {

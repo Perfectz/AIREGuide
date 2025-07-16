@@ -26,14 +26,17 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/ai-real-estate-playbook.git"
+    "url": "https://github.com/Perfectz/AIREGuide.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/ai-real-estate-playbook/issues"
+    "url": "https://github.com/Perfectz/AIREGuide/issues"
   },
-  "homepage": "https://yourdomain.com",
+  "homepage": "https://github.com/Perfectz/AIREGuide#readme",
   "devDependencies": {
-    "lighthouse": "^11.0.0"
+    "lighthouse": "^11.0.0",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11"
   },
   "engines": {
     "node": ">=16.0.0"

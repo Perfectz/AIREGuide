@@ -45,6 +45,9 @@ class RealEstateApp {
             // Initialize any additional features
             this.initializeAdditionalFeatures();
             
+            // Initialize image modal handling
+            this.initializeImageModal();
+            
             // App initialized successfully
             
             // Initialize with current hash or default to home
@@ -55,38 +58,7 @@ class RealEstateApp {
                 this.navigateToSection('home');
             }
 
-            // Set up mobile menu toggle
-            const menuBtn = document.getElementById('menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            if (menuBtn && mobileMenu) {
-                menuBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    this.toggleMobileMenu();
-                });
-                
-                // Close menu when clicking outside
-                document.addEventListener('click', (e) => {
-                    if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-                        this.closeMobileMenu();
-                    }
-                });
-                
-                // Close menu on escape key
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') {
-                        this.closeMobileMenu();
-                    }
-                });
-                
-                // Close menu when clicking on nav items
-                const mobileNavItems = mobileMenu.querySelectorAll('.nav-item');
-                mobileNavItems.forEach(item => {
-                    item.addEventListener('click', () => {
-                        this.closeMobileMenu();
-                    });
-                });
-            }
+            // Mobile menu toggle is now handled by NavigationManager
 
         } catch (error) {
             console.error('Error initializing app:', error);
@@ -130,11 +102,22 @@ class RealEstateApp {
         // Handle keyboard shortcuts
         document.addEventListener('keydown', this.handleKeyboardShortcuts.bind(this));
         
-        // Handle page visibility changes
-        document.addEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
-        
         // Handle beforeunload
         window.addEventListener('beforeunload', this.handleBeforeUnload.bind(this));
+
+        // Delegated click listener for copy buttons
+        document.addEventListener('click', async (e) => {
+            const copyButton = e.target.closest('[data-copy-target]');
+            if (copyButton) {
+                e.preventDefault();
+                const targetId = copyButton.getAttribute('data-copy-target');
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    const textToCopy = targetElement.textContent;
+                    this.clipboardManager.copyToClipboard(textToCopy).then(success => { if (success) this.clipboardManager.showCopyFeedback(copyButton); });
+                }
+            }
+        });
     }
 
     handleResize() {
@@ -143,35 +126,15 @@ class RealEstateApp {
         
         // Hide mobile menu on desktop
         if (!isMobile) {
-            this.closeMobileMenu();
-        }
-    }
-    
-    toggleMobileMenu() {
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuBtn = document.getElementById('menu-btn');
-        const body = document.body;
-        
-        if (mobileMenu && menuBtn) {
-            const isHidden = mobileMenu.classList.contains('hidden');
-            
-            if (isHidden) {
-                // Open menu
-                mobileMenu.classList.remove('hidden');
-                menuBtn.classList.add('active');
-                body.classList.add('mobile-menu-open');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
                 
-                // Focus first nav item for accessibility
-                const firstNavItem = mobileMenu.querySelector('.nav-item');
-                if (firstNavItem) {
-                    setTimeout(() => firstNavItem.focus(), 100);
+                // Update menu button aria-expanded
+                const menuBtn = document.getElementById('menu-btn');
+                if (menuBtn) {
+                    menuBtn.setAttribute('aria-expanded', 'false');
                 }
-                
-                // Track menu open event
-                this.trackEvent('mobile_menu_opened');
-            } else {
-                // Close menu
-                this.closeMobileMenu();
             }
         }
     }
@@ -194,6 +157,18 @@ class RealEstateApp {
         }
     }
 
+    initializeImageModal() {
+        const imageThumbnails = document.querySelectorAll('.ai-ui-thumb');
+        imageThumbnails.forEach(thumb => {
+            thumb.addEventListener('click', (e) => {
+                e.preventDefault();
+                const fullImageUrl = thumb.getAttribute('data-full');
+                const imageHtml = `<img src="${fullImageUrl}" alt="${thumb.alt}" class="max-w-full max-h-[80vh] mx-auto">`; // Added classes for basic styling
+                this.modalManager.openModal('', imageHtml); // Open modal with image HTML
+            });
+        });
+    }
+
     handleKeyboardShortcuts(event) {
         // Ctrl/Cmd + K for search
         if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
@@ -201,10 +176,6 @@ class RealEstateApp {
             this.focusSearch();
         }
         
-        // Escape to close modals
-        if (event.key === 'Escape') {
-            this.closeAllModals();
-        }
         
         // Ctrl/Cmd + / for help
         if ((event.ctrlKey || event.metaKey) && event.key === '/') {
@@ -333,7 +304,6 @@ class RealEstateApp {
     trackPageView() {
         // Simple analytics tracking
         const page = window.location.hash || '#home';
-        // Page view tracked
         
         // You could integrate with Google Analytics or other services here
         if (typeof gtag !== 'undefined') {
@@ -344,7 +314,6 @@ class RealEstateApp {
     }
 
     trackEvent(eventName, parameters = {}) {
-        // Event tracked
         
         // You could integrate with Google Analytics or other services here
         if (typeof gtag !== 'undefined') {
@@ -369,7 +338,6 @@ class RealEstateApp {
         const observer = new PerformanceObserver((list) => {
             for (const entry of list.getEntries()) {
                 if (entry.entryType === 'navigation') {
-                    // Navigation timing recorded
                 }
             }
         });
